@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoluTIx Digital | Solicitar Cotação</title>
+  <meta name="description" content="Solicite uma cotação personalizada dos serviços SoluTIx Digital para seu órgão público.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ════════════════════════════════════════════════
+       COTAÇÃO — estilos específicos
+       ════════════════════════════════════════════════ */
+
+    .cotacao-hero {
+      min-height: 38vh;
+      display: flex;
+      align-items: center;
+      background: var(--blue-deep);
+      padding: 120px 6% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cotacao-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 90% 50%, rgba(0,163,224,0.15) 0%, transparent 70%);
+    }
+    .cotacao-hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .cotacao-hero-content { position: relative; }
+    .cotacao-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4.5rem);
+      color: #fff; letter-spacing: 2px; line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .cotacao-hero h1 em { font-style: normal; color: var(--blue-sky); }
+    .cotacao-hero p { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 500px; }
+
+    /* ── LAYOUT PRINCIPAL ── */
+    .cotacao-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 6% 80px;
+      align-items: start;
+    }
+
+    /* ── PASSOS / STEPPER ── */
+    .stepper {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1.5px solid var(--gray-lt);
+    }
+    .step-item {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #fff;
+      font-size: 0.82rem;
+      color: var(--gray-text);
+      cursor: pointer;
+      transition: all 0.25s;
+      border-right: 1.5px solid var(--gray-lt);
+    }
+    .step-item:last-child { border-right: none; }
+    .step-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--gray-lt);
+      color: var(--gray-text);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s;
+    }
+    .step-item.ativo { background: var(--blue-deep); color: #fff; }
+    .step-item.ativo .step-num { background: var(--blue-sky); color: #fff; }
+    .step-item.concluido { background: rgba(0,184,148,0.08); color: var(--teal); }
+    .step-item.concluido .step-num {
+      background: var(--teal); color: #fff;
+    }
+    .step-item.concluido .step-num::after { content: '✓'; }
+    .step-item.concluido .step-num span { display: none; }
+
+    /* ── PAINEL DE CONTEÚDO ── */
+    .painel {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--gray-lt);
+      overflow: hidden;
+    }
+    .painel-header {
+      padding: 1.8rem 2rem 1.4rem;
+      border-bottom: 1.5px solid var(--gray-lt);
+    }
+    .painel-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--blue-deep); margin-bottom: 0.25rem;
+    }
+    .painel-header p { font-size: 0.88rem; color: var(--gray-text); }
+    .painel-body { padding: 2rem; }
+
+    /* ── ETAPA OCULTA ── */
+    .etapa-conteudo { display: none; }
+    .etapa-conteudo.ativa { display: block; }
+
+    /* ── CARDS DE SERVIÇO ── */
+    .servicos-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .srv-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      gap: 1rem;
+      padding: 1.3rem;
+      border-radius: 12px;
+      border: 1.5px solid var(--gray-lt);
+      cursor: pointer;
+      transition: all 0.22s;
+      position: relative;
+    }
+    .srv-item:hover { border-color: var(--blue-sky); background: rgba(0,163,224,0.03); }
+    .srv-item.selecionado {
+      border-color: var(--blue-sky);
+      background: rgba(0,163,224,0.05);
+    }
+    .srv-item.selecionado::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: var(--blue-sky);
+      border-radius: 12px 0 0 12px;
+    }
+    .srv-check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--gray-lt);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      margin-top: 2px;
+    }
+    .srv-item.selecionado .srv-check {
+      background: var(--blue-sky);
+      border-color: var(--blue-sky);
+    }
+    .srv-check svg { width: 12px; height: 12px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: 0; transition: opacity 0.2s; }
+    .srv-item.selecionado .srv-check svg { opacity: 1; }
+
+    .srv-info-nome {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      color: var(--blue-deep); margin-bottom: 0.2rem;
+    }
+    .srv-info-desc {
+      font-size: 0.82rem; color: var(--gray-text); line-height: 1.55;
+    }
+    .srv-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0.5rem; }
+    .srv-tag {
+      font-size: 0.72rem; font-weight: 600;
+      padding: 2px 9px; border-radius: 50px;
+      background: rgba(0,163,224,0.1); color: #007aab;
+    }
+
+    .srv-preco {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .srv-preco-label {
+      font-size: 0.7rem; color: var(--gray-text);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .srv-preco-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem; color: var(--blue-deep);
+      letter-spacing: 1px; line-height: 1.1;
+    }
+    .srv-preco-periodo {
+      font-size: 0.72rem; color: var(--gray-text);
+    }
+
+    /* ── ÍCONES DOS SERVIÇOS ── */
+    .srv-icone {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .srv-icone svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+
+    /* ── PLANOS / PORTE ── */
+    .planos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .plano-card {
+      border-radius: 12px;
+      border: 1.5px solid var(--gray-lt);
+      padding: 1.5rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.22s;
+      position: relative;
+      text-align: center;
+    }
+    .plano-card:hover { border-color: var(--blue-sky); }
+    .plano-card.selecionado {
+      border-color: var(--blue-sky);
+      background: rgba(0,163,224,0.05);
+    }
+    .plano-card.recomendado {
+      border-color: var(--teal);
+    }
+    .plano-recomendado-badge {
+      position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+      background: var(--teal); color: #fff;
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 12px; border-radius: 50px;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      white-space: nowrap;
+    }
+    .plano-icon {
+      font-size: 1.8rem; margin-bottom: 0.6rem;
+    }
+    .plano-nome {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 0.95rem;
+      color: var(--blue-deep); margin-bottom: 0.35rem;
+    }
+    .plano-desc {
+      font-size: 0.78rem; color: var(--gray-text);
+      line-height: 1.5; margin-bottom: 0.8rem;
+    }
+    .plano-multiplicador {
+      font-size: 0.78rem; color: var(--blue-sky); font-weight: 600;
+    }
+
+    /* ── FORMULÁRIO ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--blue-deep);
+    }
+    .form-group label span { color: #e74c3c; margin-left: 2px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.7rem 0.9rem;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-lt);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #1a2340;
+      transition: border-color 0.2s;
+      outline: none;
+      background: #fff;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue-sky);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group.erro input,
+    .form-group.erro select { border-color: #e74c3c; }
+    .form-erro-msg {
+      font-size: 0.78rem; color: #e74c3c;
+      display: none;
+    }
+    .form-group.erro .form-erro-msg { display: block; }
+
+    /* ── BOTÕES DE NAVEGAÇÃO ── */
+    .nav-btns {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 2rem;
+      border-top: 1.5px solid var(--gray-lt);
+    }
+    .btn-nav-back {
+      background: none;
+      border: 1.5px solid var(--gray-lt);
+      color: var(--gray-text);
+      padding: 0.65rem 1.4rem;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-nav-back:hover { border-color: var(--blue-sky); color: var(--blue-sky); }
+    .btn-nav-next {
+      background: var(--blue-sky);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.6rem;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-nav-next:hover { background: #0091cc; transform: translateY(-1px); }
+    .btn-nav-next:disabled { background: var(--gray-lt); color: var(--gray-text); transform: none; cursor: not-allowed; }
+    .btn-nav-next svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; }
+
+    /* ── SIDEBAR / RESUMO ── */
+    .resumo-sidebar {
+      position: sticky;
+      top: 90px;
+    }
+    .resumo-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--gray-lt);
+      overflow: hidden;
+    }
+    .resumo-header {
+      background: var(--blue-deep);
+      color: #fff;
+      padding: 1.4rem 1.6rem;
+    }
+    .resumo-header h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .resumo-header p { font-size: 0.78rem; opacity: 0.6; }
+    .resumo-body { padding: 1.4rem 1.6rem; }
+
+    .resumo-servicos { margin-bottom: 1.2rem; }
+    .resumo-srv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--gray-lt);
+      gap: 0.8rem;
+    }
+    .resumo-srv:last-child { border-bottom: none; }
+    .resumo-srv-nome {
+      font-size: 0.85rem;
+      color: var(--blue-deep);
+      font-weight: 500;
+      flex: 1;
+    }
+    .resumo-srv-preco {
+      font-size: 0.85rem;
+      color: var(--gray-text);
+      white-space: nowrap;
+    }
+    .resumo-vazio {
+      font-size: 0.85rem;
+      color: var(--gray-text);
+      text-align: center;
+      padding: 1.5rem 0;
+      opacity: 0.7;
+    }
+
+    .resumo-plano {
+      background: rgba(0,163,224,0.06);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      display: none;
+    }
+    .resumo-plano.visivel { display: flex; }
+    .resumo-plano-nome { font-size: 0.85rem; font-weight: 600; color: var(--blue-deep); }
+    .resumo-plano-mult { font-size: 0.78rem; color: var(--blue-sky); }
+
+    .resumo-total {
+      border-top: 2px solid var(--blue-deep);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+    .resumo-linha {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .resumo-linha-label { font-size: 0.82rem; color: var(--gray-text); }
+    .resumo-linha-val { font-size: 0.82rem; color: var(--blue-deep); font-weight: 500; }
+    .resumo-total-final {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 0.8rem;
+    }
+    .resumo-total-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      color: var(--blue-deep);
+    }
+    .resumo-total-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; color: var(--blue-sky);
+      letter-spacing: 1px; line-height: 1;
+    }
+    .resumo-total-periodo {
+      font-size: 0.72rem; color: var(--gray-text);
+      text-align: right; margin-top: 0.2rem;
+    }
+
+    .resumo-aviso {
+      background: rgba(0,184,148,0.08);
+      border: 1px solid rgba(0,184,148,0.2);
+      border-radius: 10px;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #008a6e;
+      line-height: 1.55;
+    }
+    .resumo-aviso strong { display: block; margin-bottom: 0.2rem; }
+
+    .resumo-selo {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .resumo-selo-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: var(--gray-text);
+    }
+    .resumo-selo-item svg { width: 14px; height: 14px; fill: var(--teal); }
+
+    /* ── SUCESSO ── */
+    .sucesso-wrap {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .sucesso-icone {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(0,184,148,0.12);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .sucesso-icone svg { width: 38px; height: 38px; fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; }
+    .sucesso-wrap h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem; color: var(--blue-deep);
+      letter-spacing: 2px; margin-bottom: 0.8rem;
+    }
+    .sucesso-wrap p { color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; max-width: 440px; margin: 0 auto 2rem; }
+    .sucesso-protocolo {
+      background: var(--gray-lt);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    .sucesso-protocolo-label { font-size: 0.75rem; color: var(--gray-text); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+    .sucesso-protocolo-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; color: var(--blue-deep);
+      letter-spacing: 3px;
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 900px) {
+      .cotacao-layout { grid-template-columns: 1fr; }
+      .resumo-sidebar { position: static; }
+      .planos-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: auto; }
+      .stepper { flex-direction: column; }
+      .step-item { border-right: none; border-bottom: 1.5px solid var(--gray-lt); }
+      .step-item:last-child { border-bottom: none; }
+      .srv-item { grid-template-columns: auto 1fr; }
+      .srv-preco { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">SoluTI<span>x</span></div>
+  <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav aria-label="Menu principal">
+    <ul>
+      <li><a href="index.html#sobre">Empresa</a></li>
+      <li><a href="index.html#servicos">Serviços</a></li>
+      <li><a href="index.html#impacto">Impacto</a></li>
+      <li><a href="index.html#rotas">Rotas</a></li>
+      <li><a href="index.html#modernizacao">Modernização</a></li>
+      <li><a href="cotacao.html" class="nav-cta">Solicitar cotação</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="cotacao-hero">
+  <div class="cotacao-hero-grid" aria-hidden="true"></div>
+  <div class="cotacao-hero-content reveal">
+    <div class="hero-badge">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+      Resposta em até 2 dias úteis
+    </div>
+    <h1>Solicite sua <em>cotação</em></h1>
+    <p>Monte o pacote de serviços ideal para o seu órgão e receba uma proposta comercial sem compromisso.</p>
+  </div>
+</div>
+
+<!-- LAYOUT PRINCIPAL -->
+<div class="cotacao-layout">
+
+  <!-- COLUNA PRINCIPAL -->
+  <div>
+
+    <!-- STEPPER -->
+    <div class="stepper" role="tablist" aria-label="Etapas da cotação">
+      <div class="step-item ativo" role="tab" data-step="1" id="tab-1" aria-selected="true" aria-controls="etapa-1">
+        <div class="step-num"><span>1</span></div>
+        <span>Serviços</span>
+      </div>
+      <div class="step-item" role="tab" data-step="2" id="tab-2" aria-selected="false" aria-controls="etapa-2">
+        <div class="step-num"><span>2</span></div>
+        <span>Porte</span>
+      </div>
+      <div class="step-item" role="tab" data-step="3" id="tab-3" aria-selected="false" aria-controls="etapa-3">
+        <div class="step-num"><span>3</span></div>
+        <span>Dados</span>
+      </div>
+      <div class="step-item" role="tab" data-step="4" id="tab-4" aria-selected="false" aria-controls="etapa-4">
+        <div class="step-num"><span>4</span></div>
+        <span>Revisão</span>
+      </div>
+    </div>
+
+    <!-- PAINEL -->
+    <div class="painel">
+
+      <!-- ETAPA 1: SERVIÇOS -->
+      <div id="etapa-1" class="etapa-conteudo ativa" role="tabpanel" aria-labelledby="tab-1">
+        <div class="painel-header">
+          <h2>Selecione os serviços desejados</h2>
+          <p>Escolha um ou mais serviços. Você pode combinar livremente.</p>
+        </div>
+        <div class="painel-body">
+          <div class="servicos-lista" id="lista-servicos">
+            <!-- injetado via JS -->
+          </div>
+        </div>
+        <div class="nav-btns">
+          <span></span>
+          <button class="btn-nav-next" id="btn-prox-1" onclick="irParaEtapa(2)" disabled>
+            Próximo: Porte do órgão
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ETAPA 2: PORTE -->
+      <div id="etapa-2" class="etapa-conteudo" role="tabpanel" aria-labelledby="tab-2">
+        <div class="painel-header">
+          <h2>Porte do órgão contratante</h2>
+          <p>O porte define o escopo e volume do projeto — e impacta o valor estimado.</p>
+        </div>
+        <div class="painel-body">
+          <div class="planos-grid" id="lista-planos">
+            <!-- injetado via JS -->
+          </div>
+        </div>
+        <div class="nav-btns">
+          <button class="btn-nav-back" onclick="irParaEtapa(1)">← Voltar</button>
+          <button class="btn-nav-next" id="btn-prox-2" onclick="irParaEtapa(3)" disabled>
+            Próximo: Dados de contato
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ETAPA 3: DADOS -->
+      <div id="etapa-3" class="etapa-conteudo" role="tabpanel" aria-labelledby="tab-3">
+        <div class="painel-header">
+          <h2>Dados do responsável pela solicitação</h2>
+          <p>Preencha as informações para recebermos sua cotação.</p>
+        </div>
+        <div class="painel-body">
+          <div class="form-grid" id="formulario-dados">
+            <div class="form-group" id="fg-nome">
+              <label for="inp-nome">Nome completo <span>*</span></label>
+              <input type="text" id="inp-nome" placeholder="Ex.: João da Silva" autocomplete="name">
+              <span class="form-erro-msg">Por favor, informe seu nome.</span>
+            </div>
+            <div class="form-group" id="fg-cargo">
+              <label for="inp-cargo">Cargo / Função <span>*</span></label>
+              <input type="text" id="inp-cargo" placeholder="Ex.: Diretor de TI">
+              <span class="form-erro-msg">Por favor, informe seu cargo.</span>
+            </div>
+            <div class="form-group full" id="fg-orgao">
+              <label for="inp-orgao">Nome do órgão / entidade <span>*</span></label>
+              <input type="text" id="inp-orgao" placeholder="Ex.: Secretaria Municipal de Saúde de Brasília">
+              <span class="form-erro-msg">Por favor, informe o nome do órgão.</span>
+            </div>
+            <div class="form-group" id="fg-email">
+              <label for="inp-email">E-mail institucional <span>*</span></label>
+              <input type="email" id="inp-email" placeholder="voce@orgao.gov.br" autocomplete="email">
+              <span class="form-erro-msg">Por favor, informe um e-mail válido.</span>
+            </div>
+            <div class="form-group" id="fg-tel">
+              <label for="inp-tel">Telefone / WhatsApp <span>*</span></label>
+              <input type="tel" id="inp-tel" placeholder="(61) 99999-9999" autocomplete="tel">
+              <span class="form-erro-msg">Por favor, informe o telefone.</span>
+            </div>
+            <div class="form-group full">
+              <label for="inp-uf">Estado (UF) <span>*</span></label>
+              <select id="inp-uf">
+                <option value="">Selecione o estado…</option>
+                <option>Acre (AC)</option><option>Alagoas (AL)</option><option>Amapá (AP)</option>
+                <option>Amazonas (AM)</option><option>Bahia (BA)</option><option>Ceará (CE)</option>
+                <option>Distrito Federal (DF)</option><option>Espírito Santo (ES)</option>
+                <option>Goiás (GO)</option><option>Maranhão (MA)</option><option>Mato Grosso (MT)</option>
+                <option>Mato Grosso do Sul (MS)</option><option>Minas Gerais (MG)</option>
+                <option>Pará (PA)</option><option>Paraíba (PB)</option><option>Paraná (PR)</option>
+                <option>Pernambuco (PE)</option><option>Piauí (PI)</option>
+                <option>Rio de Janeiro (RJ)</option><option>Rio Grande do Norte (RN)</option>
+                <option>Rio Grande do Sul (RS)</option><option>Rondônia (RO)</option>
+                <option>Roraima (RR)</option><option>Santa Catarina (SC)</option>
+                <option>São Paulo (SP)</option><option>Sergipe (SE)</option><option>Tocantins (TO)</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="inp-obs">Observações / Detalhes adicionais</label>
+              <textarea id="inp-obs" placeholder="Descreva brevemente o contexto da demanda, sistemas envolvidos, prazos desejados ou qualquer informação relevante…"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="nav-btns">
+          <button class="btn-nav-back" onclick="irParaEtapa(2)">← Voltar</button>
+          <button class="btn-nav-next" onclick="irParaEtapa(4)">
+            Revisar solicitação
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ETAPA 4: REVISÃO -->
+      <div id="etapa-4" class="etapa-conteudo" role="tabpanel" aria-labelledby="tab-4">
+        <div class="painel-header">
+          <h2>Revisão da solicitação</h2>
+          <p>Confirme os dados antes de enviar. Após o envio, nossa equipe entrará em contato.</p>
+        </div>
+        <div class="painel-body" id="revisao-conteudo">
+          <!-- injetado via JS -->
+        </div>
+        <div class="nav-btns">
+          <button class="btn-nav-back" onclick="irParaEtapa(3)">← Voltar e editar</button>
+          <button class="btn-nav-next" id="btn-enviar" onclick="enviarCotacao()">
+            Enviar solicitação
+            <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ETAPA 5: SUCESSO -->
+      <div id="etapa-5" class="etapa-conteudo" role="tabpanel">
+        <div class="sucesso-wrap">
+          <div class="sucesso-icone">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h2>Solicitação enviada!</h2>
+          <p>Nossa equipe comercial analisará sua cotação e entrará em contato em até <strong>2 dias úteis</strong> pelo e-mail ou telefone informado.</p>
+          <div class="sucesso-protocolo">
+            <div class="sucesso-protocolo-label">Protocolo</div>
+            <div class="sucesso-protocolo-num" id="protocolo-num">—</div>
+          </div>
+          <div class="btn-group" style="justify-content:center">
+            <a href="index.html" class="btn btn-primary">Voltar ao site</a>
+            <a href="cotacao.html" class="btn btn-ghost" style="border-color: var(--gray-lt); color: var(--gray-text);" onclick="resetarFormulario()">Nova cotação</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /painel -->
+  </div><!-- /coluna principal -->
+
+  <!-- SIDEBAR RESUMO -->
+  <aside class="resumo-sidebar" aria-label="Resumo do pedido">
+    <div class="resumo-card">
+      <div class="resumo-header">
+        <h3>Resumo da cotação</h3>
+        <p>Estimativa inicial sujeita a proposta formal</p>
+      </div>
+      <div class="resumo-body">
+
+        <div class="resumo-servicos" id="resumo-lista">
+          <div class="resumo-vazio" id="resumo-vazio">Nenhum serviço selecionado ainda.</div>
+        </div>
+
+        <div class="resumo-plano" id="resumo-plano-box">
+          <div>
+            <div class="resumo-plano-nome" id="resumo-plano-nome">—</div>
+            <div class="resumo-plano-mult" id="resumo-plano-mult">—</div>
+          </div>
+          <span style="font-size:1.2rem" id="resumo-plano-emoji">—</span>
+        </div>
+
+        <div class="resumo-total">
+          <div class="resumo-linha">
+            <span class="resumo-linha-label">Subtotal base</span>
+            <span class="resumo-linha-val" id="res-subtotal">R$ 0</span>
+          </div>
+          <div class="resumo-linha">
+            <span class="resumo-linha-label">Fator de porte</span>
+            <span class="resumo-linha-val" id="res-fator">×1,0</span>
+          </div>
+          <div class="resumo-total-final">
+            <span class="resumo-total-label">Estimativa mensal</span>
+            <span class="resumo-total-val" id="res-total">R$ 0</span>
+          </div>
+          <div class="resumo-total-periodo">* Valores de referência. Proposta formal enviada após análise.</div>
+        </div>
+
+        <div class="resumo-aviso">
+          <strong>📋 Sem custo de contratação</strong>
+          A cotação é gratuita e não gera nenhum compromisso. Nossa equipe elabora uma proposta personalizada conforme sua necessidade.
+        </div>
+
+        <div class="resumo-selo">
+          <div class="resumo-selo-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2L3 7v6c0 5.25 3.75 10.15 9 11.35C17.25 23.15 21 18.25 21 13V7L12 2z"/></svg>
+            LGPD
+          </div>
+          <div class="resumo-selo-item">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            SLA garantido
+          </div>
+          <div class="resumo-selo-item">
+            <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            +10 anos
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- /cotacao-layout -->
+
+<!-- FOOTER -->
+<footer id="contato">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">SoluTI<span>x</span> Digital</div>
+      <p>Transformando a gestão pública brasileira com tecnologia de qualidade, ética e compromisso com o resultado.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navegação</h5>
+      <ul>
+        <li><a href="index.html#sobre">Empresa</a></li>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#impacto">Impacto</a></li>
+        <li><a href="cotacao.html">Cotação</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contato</h5>
+      <ul>
+        <li><a href="mailto:contato@solutix.com.br">contato@solutix.com.br</a></li>
+        <li><a href="tel:+556133330000">(61) 3333-0000</a></li>
+        <li><a href="#">Brasília – DF</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SoluTIx Digital. Todos os direitos reservados.</span>
+    <span>CNPJ 00.000.000/0001-00</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+/* ════════════════════════════════════════════════
+   DADOS DOS SERVIÇOS E PLANOS
+   ════════════════════════════════════════════════ */
+const SERVICOS = [
+  {
+    id: 'dev',
+    nome: 'Desenvolvimento de sistemas',
+    desc: 'Criação de soluções web e corporativas sob medida, com foco em usabilidade e conformidade governamental.',
+    tags: ['Web', 'Corporativo', 'Custom'],
+    precoBase: 18000,
+    periodo: '/mês',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`,
+    cor: 'linear-gradient(135deg,#003087,#00a3e0)'
+  },
+  {
+    id: 'manut',
+    nome: 'Manutenção e sustentação',
+    desc: 'Suporte técnico contínuo, correções evolutivas e SLA definido para garantir disponibilidade dos sistemas.',
+    tags: ['SLA', 'Suporte 24/7', 'Evolutivo'],
+    precoBase: 9500,
+    periodo: '/mês',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" fill="#fff" stroke="none"/></svg>`,
+    cor: 'linear-gradient(135deg,#00a3e0,#00b894)'
+  },
+  {
+    id: 'trans',
+    nome: 'Transformação digital',
+    desc: 'Modernização de legados, migração para cloud e implantação de DevOps para aumentar eficiência operacional.',
+    tags: ['Cloud', 'DevOps', 'Legados'],
+    precoBase: 22000,
+    periodo: '/projeto',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>`,
+    cor: 'linear-gradient(135deg,#00b894,#00205c)'
+  },
+  {
+    id: 'dados',
+    nome: 'Inteligência e dados',
+    desc: 'Dashboards gerenciais, integração de dados e BI para tomadas de decisão baseadas em evidências.',
+    tags: ['BI', 'Dashboard', 'Integração'],
+    precoBase: 12000,
+    periodo: '/mês',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
+    cor: 'linear-gradient(135deg,#003087,#00b894)'
+  },
+  {
+    id: 'seg',
+    nome: 'Segurança da informação',
+    desc: 'Auditorias, adequação à LGPD, controles de acesso e planos de continuidade para ambientes críticos.',
+    tags: ['LGPD', 'Auditoria', 'Compliance'],
+    precoBase: 14500,
+    periodo: '/mês',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>`,
+    cor: 'linear-gradient(135deg,#00a3e0,#003087)'
+  },
+  {
+    id: 'cap',
+    nome: 'Capacitação técnica',
+    desc: 'Treinamentos, documentação e transferência de conhecimento para equipes de TI dos órgãos contratantes.',
+    tags: ['Treinamento', 'Documentação', 'Transferência'],
+    precoBase: 7500,
+    periodo: '/projeto',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`,
+    cor: 'linear-gradient(135deg,#00b894,#00a3e0)'
+  }
+];
+
+const PLANOS = [
+  {
+    id: 'pequeno',
+    nome: 'Pequeno porte',
+    desc: 'Municípios, autarquias e órgãos com equipe de TI até 10 pessoas.',
+    emoji: '🏛️',
+    multiplicador: 1.0,
+    label: 'Base ×1,0'
+  },
+  {
+    id: 'medio',
+    nome: 'Médio porte',
+    desc: 'Secretarias estaduais e autarquias federais com operação regional.',
+    emoji: '🏢',
+    multiplicador: 1.6,
+    label: 'Médio ×1,6',
+    recomendado: true
+  },
+  {
+    id: 'grande',
+    nome: 'Grande porte',
+    desc: 'Ministérios, órgãos federais e sistemas de abrangência nacional.',
+    emoji: '🏗️',
+    multiplicador: 2.5,
+    label: 'Grande ×2,5'
+  }
+];
+
+/* ════════════════════════════════════════════════
+   ESTADO DA APLICAÇÃO
+   ════════════════════════════════════════════════ */
+const estado = {
+  etapaAtual: 1,
+  servicosSelecionados: new Set(),
+  planoSelecionado: null
+};
+
+/* ════════════════════════════════════════════════
+   RENDERIZAÇÃO INICIAL
+   ════════════════════════════════════════════════ */
+function formatarMoeda(val) {
+  return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+}
+
+function renderizarServicos() {
+  const lista = document.getElementById('lista-servicos');
+  lista.innerHTML = SERVICOS.map(s => `
+    <div class="srv-item" id="srv-${s.id}" onclick="toggleServico('${s.id}')" role="checkbox" aria-checked="false" tabindex="0">
+      <div class="srv-check">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:1rem; flex:1">
+        <div class="srv-icone" style="background:${s.cor}">${s.icon}</div>
+        <div>
+          <div class="srv-info-nome">${s.nome}</div>
+          <div class="srv-info-desc">${s.desc}</div>
+          <div class="srv-tags">${s.tags.map(t => `<span class="srv-tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="srv-preco">
+        <div class="srv-preco-label">A partir de</div>
+        <div class="srv-preco-val">${formatarMoeda(s.precoBase)}</div>
+        <div class="srv-preco-periodo">${s.periodo}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Suporte a teclado
+  lista.querySelectorAll('.srv-item').forEach(el => {
+    el.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); el.click(); }
+    });
+  });
+}
+
+function renderizarPlanos() {
+  const lista = document.getElementById('lista-planos');
+  lista.innerHTML = PLANOS.map(p => `
+    <div class="plano-card${p.recomendado ? ' recomendado' : ''}" id="plano-${p.id}" onclick="selecionarPlano('${p.id}')" role="radio" tabindex="0">
+      ${p.recomendado ? '<div class="plano-recomendado-badge">Mais comum</div>' : ''}
+      <div class="plano-icon">${p.emoji}</div>
+      <div class="plano-nome">${p.nome}</div>
+      <div class="plano-desc">${p.desc}</div>
+      <div class="plano-multiplicador">${p.label}</div>
+    </div>
+  `).join('');
+
+  lista.querySelectorAll('.plano-card').forEach(el => {
+    el.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); el.click(); }
+    });
+  });
+}
+
+/* ════════════════════════════════════════════════
+   AÇÕES
+   ════════════════════════════════════════════════ */
+function toggleServico(id) {
+  const el = document.getElementById('srv-' + id);
+  if (estado.servicosSelecionados.has(id)) {
+    estado.servicosSelecionados.delete(id);
+    el.classList.remove('selecionado');
+    el.setAttribute('aria-checked', 'false');
+  } else {
+    estado.servicosSelecionados.add(id);
+    el.classList.add('selecionado');
+    el.setAttribute('aria-checked', 'true');
+  }
+  atualizarBotaoEtapa1();
+  atualizarResumo();
+}
+
+function atualizarBotaoEtapa1() {
+  const btn = document.getElementById('btn-prox-1');
+  btn.disabled = estado.servicosSelecionados.size === 0;
+}
+
+function selecionarPlano(id) {
+  document.querySelectorAll('.plano-card').forEach(el => el.classList.remove('selecionado'));
+  const el = document.getElementById('plano-' + id);
+  el.classList.add('selecionado');
+  el.setAttribute('aria-checked', 'true');
+  estado.planoSelecionado = PLANOS.find(p => p.id === id);
+  document.getElementById('btn-prox-2').disabled = false;
+  atualizarResumo();
+}
+
+function atualizarResumo() {
+  const listaEl   = document.getElementById('resumo-lista');
+  const vazioEl   = document.getElementById('resumo-vazio');
+  const planoBox  = document.getElementById('resumo-plano-box');
+  const planNome  = document.getElementById('resumo-plano-nome');
+  const planMult  = document.getElementById('resumo-plano-mult');
+  const planEmoji = document.getElementById('resumo-plano-emoji');
+  const subtEl    = document.getElementById('res-subtotal');
+  const fatorEl   = document.getElementById('res-fator');
+  const totalEl   = document.getElementById('res-total');
+
+  // Serviços
+  const selecionados = SERVICOS.filter(s => estado.servicosSelecionados.has(s.id));
+  const subtotal = selecionados.reduce((acc, s) => acc + s.precoBase, 0);
+
+  // Remove itens antigos
+  listaEl.querySelectorAll('.resumo-srv').forEach(el => el.remove());
+
+  if (selecionados.length === 0) {
+    vazioEl.style.display = 'block';
+  } else {
+    vazioEl.style.display = 'none';
+    selecionados.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'resumo-srv';
+      div.innerHTML = `<span class="resumo-srv-nome">${s.nome}</span><span class="resumo-srv-preco">${formatarMoeda(s.precoBase)}</span>`;
+      listaEl.appendChild(div);
+    });
+  }
+
+  // Plano
+  if (estado.planoSelecionado) {
+    planoBox.classList.add('visivel');
+    planNome.textContent = estado.planoSelecionado.nome;
+    planMult.textContent = estado.planoSelecionado.label;
+    planEmoji.textContent = estado.planoSelecionado.emoji;
+  } else {
+    planoBox.classList.remove('visivel');
+  }
+
+  // Totais
+  const fator = estado.planoSelecionado ? estado.planoSelecionado.multiplicador : 1.0;
+  const total = Math.round(subtotal * fator);
+  subtEl.textContent   = formatarMoeda(subtotal);
+  fatorEl.textContent  = '×' + fator.toFixed(1).replace('.', ',');
+  totalEl.textContent  = formatarMoeda(total);
+}
+
+/* ════════════════════════════════════════════════
+   NAVEGAÇÃO DE ETAPAS
+   ════════════════════════════════════════════════ */
+function irParaEtapa(num) {
+  // Validar etapa 3 antes de ir para 4
+  if (num === 4 && !validarFormulario()) return;
+
+  // Atualiza estado visual
+  estado.etapaAtual = num;
+
+  document.querySelectorAll('.etapa-conteudo').forEach(el => el.classList.remove('ativa'));
+  document.getElementById('etapa-' + num).classList.add('ativa');
+
+  document.querySelectorAll('.step-item').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.remove('ativo', 'concluido');
+    if (s === num) el.classList.add('ativo');
+    if (s < num)   el.classList.add('concluido');
+    el.setAttribute('aria-selected', s === num ? 'true' : 'false');
+  });
+
+  // Montar revisão
+  if (num === 4) renderizarRevisao();
+
+  // Scroll suave ao topo do painel
+  document.querySelector('.painel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ════════════════════════════════════════════════
+   VALIDAÇÃO DO FORMULÁRIO
+   ════════════════════════════════════════════════ */
+function validarFormulario() {
+  const campos = [
+    { id: 'inp-nome',  fg: 'fg-nome',  validar: v => v.trim().length >= 3 },
+    { id: 'inp-cargo', fg: 'fg-cargo', validar: v => v.trim().length >= 2 },
+    { id: 'inp-orgao', fg: 'fg-orgao', validar: v => v.trim().length >= 4 },
+    { id: 'inp-email', fg: 'fg-email', validar: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: 'inp-tel',   fg: 'fg-tel',   validar: v => v.replace(/\D/g,'').length >= 10 }
+  ];
+
+  let ok = true;
+  campos.forEach(c => {
+    const inp = document.getElementById(c.id);
+    const fg  = document.getElementById(c.fg);
+    const valido = c.validar(inp.value);
+    fg.classList.toggle('erro', !valido);
+    if (!valido) ok = false;
+  });
+  return ok;
+}
+
+/* ════════════════════════════════════════════════
+   REVISÃO
+   ════════════════════════════════════════════════ */
+function renderizarRevisao() {
+  const selecionados = SERVICOS.filter(s => estado.servicosSelecionados.has(s.id));
+  const fator = estado.planoSelecionado ? estado.planoSelecionado.multiplicador : 1.0;
+  const subtotal = selecionados.reduce((acc, s) => acc + s.precoBase, 0);
+  const total = Math.round(subtotal * fator);
+
+  const nome   = document.getElementById('inp-nome').value;
+  const cargo  = document.getElementById('inp-cargo').value;
+  const orgao  = document.getElementById('inp-orgao').value;
+  const email  = document.getElementById('inp-email').value;
+  const tel    = document.getElementById('inp-tel').value;
+  const uf     = document.getElementById('inp-uf').value;
+  const obs    = document.getElementById('inp-obs').value;
+
+  const wrap = document.getElementById('revisao-conteudo');
+  wrap.innerHTML = `
+    <div style="display:grid; gap:20px;">
+
+      <div>
+        <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue-sky);margin-bottom:0.7rem;">Serviços solicitados</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${selecionados.map(s => `
+            <div style="display:flex;align-items:center;gap:0.8rem;padding:0.7rem 1rem;background:#f8faff;border-radius:10px;border:1px solid var(--gray-lt);">
+              <div style="width:32px;height:32px;border-radius:8px;background:${s.cor};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${s.icon.replace('stroke-width="2"', 'stroke-width="2" style="width:16px;height:16px"')}</div>
+              <span style="font-size:0.9rem;font-weight:600;color:var(--blue-deep);flex:1">${s.nome}</span>
+              <span style="font-size:0.85rem;color:var(--gray-text)">${formatarMoeda(s.precoBase)}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue-sky);margin-bottom:0.7rem;">Porte do órgão</p>
+        <div style="display:flex;align-items:center;gap:0.8rem;padding:0.7rem 1rem;background:#f8faff;border-radius:10px;border:1px solid var(--gray-lt);">
+          <span style="font-size:1.4rem;">${estado.planoSelecionado.emoji}</span>
+          <div>
+            <div style="font-size:0.9rem;font-weight:600;color:var(--blue-deep);">${estado.planoSelecionado.nome}</div>
+            <div style="font-size:0.8rem;color:var(--gray-text)">${estado.planoSelecionado.label}</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue-sky);margin-bottom:0.7rem;">Dados do responsável</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          ${[
+            ['Nome', nome], ['Cargo', cargo],
+            ['E-mail', email], ['Telefone', tel],
+            ['Órgão / entidade', orgao], ['Estado', uf || '—']
+          ].map(([l, v]) => `
+            <div style="padding:0.6rem 0.9rem;background:#f8faff;border-radius:10px;border:1px solid var(--gray-lt);">
+              <div style="font-size:0.72rem;color:var(--gray-text);margin-bottom:2px;">${l}</div>
+              <div style="font-size:0.88rem;font-weight:500;color:var(--blue-deep);word-break:break-word;">${v}</div>
+            </div>
+          `).join('')}
+        </div>
+        ${obs ? `
+          <div style="margin-top:8px;padding:0.8rem 0.9rem;background:#f8faff;border-radius:10px;border:1px solid var(--gray-lt);">
+            <div style="font-size:0.72rem;color:var(--gray-text);margin-bottom:4px;">Observações</div>
+            <div style="font-size:0.88rem;color:var(--blue-deep);line-height:1.55">${obs}</div>
+          </div>
+        ` : ''}
+      </div>
+
+      <div style="background:var(--blue-deep);border-radius:12px;padding:1.2rem 1.4rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+          <span style="font-size:0.85rem;color:rgba(255,255,255,0.65)">Subtotal base</span>
+          <span style="font-size:0.88rem;color:#fff;font-weight:500">${formatarMoeda(subtotal)}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">
+          <span style="font-size:0.85rem;color:rgba(255,255,255,0.65)">Fator de porte (×${fator.toFixed(1).replace('.',',')})</span>
+          <span style="font-size:0.88rem;color:#fff;font-weight:500">aplicado</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(255,255,255,0.12);padding-top:0.8rem;">
+          <span style="font-family:'Syne',sans-serif;font-weight:700;color:#fff;">Estimativa mensal</span>
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--blue-sky);letter-spacing:1px;">${formatarMoeda(total)}</span>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+/* ════════════════════════════════════════════════
+   ENVIO
+   ════════════════════════════════════════════════ */
+function enviarCotacao() {
+  const btn = document.getElementById('btn-enviar');
+  btn.disabled = true;
+  btn.innerHTML = `<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite"></span> Enviando…`;
+
+  // Simula envio (substituir por fetch real)
+  setTimeout(() => {
+    const protocolo = 'STX-' + Date.now().toString().slice(-8).toUpperCase();
+    document.getElementById('protocolo-num').textContent = protocolo;
+
+    // Oculta stepper
+    document.querySelector('.stepper').style.display = 'none';
+
+    // Mostra etapa 5
+    document.querySelectorAll('.etapa-conteudo').forEach(el => el.classList.remove('ativa'));
+    document.getElementById('etapa-5').classList.add('ativa');
+
+    // Atualiza sidebar
+    document.querySelector('.resumo-sidebar').innerHTML = `
+      <div class="resumo-card">
+        <div style="padding:2rem;text-align:center">
+          <div style="font-size:2.5rem;margin-bottom:0.8rem">✅</div>
+          <p style="font-family:'Syne',sans-serif;font-weight:700;color:var(--blue-deep);margin-bottom:0.5rem">Solicitação enviada com sucesso!</p>
+          <p style="font-size:0.85rem;color:var(--gray-text);line-height:1.6">Nossa equipe entrará em contato em até <strong>2 dias úteis</strong>.</p>
+          <div style="margin-top:1.2rem;padding:0.8rem;background:var(--gray-lt);border-radius:10px;">
+            <div style="font-size:0.72rem;color:var(--gray-text);text-transform:uppercase;letter-spacing:0.08em">Protocolo</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--blue-deep);letter-spacing:2px">${protocolo}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }, 1800);
+}
+
+function resetarFormulario() {
+  estado.etapaAtual = 1;
+  estado.servicosSelecionados.clear();
+  estado.planoSelecionado = null;
+  location.reload();
+}
+
+/* ════════════════════════════════════════════════
+   ANIMAÇÃO DO SPINNER
+   ════════════════════════════════════════════════ */
+const styleEl = document.createElement('style');
+styleEl.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+document.head.appendChild(styleEl);
+
+/* ════════════════════════════════════════════════
+   INICIALIZAÇÃO
+   ════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderizarServicos();
+  renderizarPlanos();
+  atualizarResumo();
+});
+</script>
+
+</body>
+</html>

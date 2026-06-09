@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoluTIx Digital | Tecnologia para o Setor Público</title>
+  <meta name="description" content="Desenvolvimento, manutenção e transformação digital de sistemas para órgãos governamentais brasileiros.">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- CSS do site -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     HEADER
+     ══════════════════════════════════════════════ -->
+<header>
+  <div class="logo">SoluTI<span>x</span></div>
+  <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav aria-label="Menu principal">
+    <ul>
+      <li><a href="#sobre">Empresa</a></li>
+      <li><a href="servicos.html">Serviços</a></li>
+      <li><a href="#impacto">Impacto</a></li>
+      <li><a href="#rotas">Rotas</a></li>
+      <li><a href="cotacao.html" class="nav-cta">Solicitar cotação</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+      10+ anos de excelência no setor público
+    </div>
+    <h1>Tecnologia que <em>transforma</em> a gestão pública</h1>
+    <p>Desenvolvimento, manutenção e modernização de sistemas para órgãos governamentais em todo o Brasil — com qualidade, conformidade e entregas que funcionam.</p>
+    <div class="btn-group">
+      <a href="cotacao.html" class="btn btn-primary">Solicitar cotação</a>
+      <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>+80</strong><span>Contratos entregues</span></div>
+      <div class="hero-stat"><strong>15+</strong><span>Órgãos atendidos</span></div>
+      <div class="hero-stat"><strong>98%</strong><span>Índice de satisfação</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SOBRE
+     ══════════════════════════════════════════════ -->
+<section id="sobre">
+  <div class="sobre-grid">
+    <div class="sobre-visual reveal">
+      <div class="sobre-img-wrap">
+        <img src="img/equipe.jpg" alt="Equipe SoluTIx Digital" loading="lazy">
+      </div>
+      <div class="sobre-badge">
+        <strong>2014</strong>
+        <span>Fundada em</span>
+      </div>
+    </div>
+    <div class="sobre-texto reveal">
+      <p class="section-label">Quem somos</p>
+      <h2 class="section-title">Parceiros confiáveis da administração pública</h2>
+      <p>A SoluTIx Digital atua há mais de uma década no desenvolvimento, manutenção e modernização de sistemas para órgãos públicos em todo o Brasil.</p>
+      <p>Combinamos sólida experiência em contratos governamentais com as melhores práticas de engenharia de software, segurança da informação e conformidade regulatória.</p>
+      <div class="valores">
+        <div class="valor-item">
+          <div class="valor-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L3 7v6c0 5.25 3.75 10.15 9 11.35C17.25 23.15 21 18.25 21 13V7L12 2z"/></svg>
+          </div>
+          <div>
+            <h4>Conformidade e segurança</h4>
+            <p>Aderência à LGPD e normas de TI do governo federal.</p>
+          </div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>Entregas no prazo</h4>
+            <p>Metodologia ágil adaptada ao ambiente licitatório.</p>
+          </div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>Equipe especializada</h4>
+            <p>Profissionais certificados com foco no setor público.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SERVIÇOS
+     ══════════════════════════════════════════════ -->
+<section id="servicos">
+  <div class="servicos-header reveal">
+    <div>
+      <p class="section-label">O que fazemos</p>
+      <h2 class="section-title">Nossos serviços</h2>
+    </div>
+    <p class="section-sub">Da concepção à sustentação, cobrimos todo o ciclo de vida do software governamental.</p>
+  </div>
+  <div class="cards-grid">
+    <article class="card reveal">
+      <div class="card-icon" style="background:linear-gradient(135deg,#003087,#00a3e0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      </div>
+      <h3>Desenvolvimento de sistemas</h3>
+      <p>Criação de soluções web e corporativas sob medida, com foco em usabilidade, performance e conformidade com a arquitetura de referência do governo federal.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" style="background:linear-gradient(135deg,#00a3e0,#00b894)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" fill="#fff" stroke="none"/></svg>
+      </div>
+      <h3>Manutenção e sustentação</h3>
+      <p>Suporte técnico contínuo, correções evolutivas, SLA definido e equipe dedicada para garantir disponibilidade e estabilidade dos sistemas.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" style="background:linear-gradient(135deg,#00b894,#00205c)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+      </div>
+      <h3>Transformação digital</h3>
+      <p>Modernização de legados, migração para cloud e implantação de práticas DevOps e automação para aumentar a eficiência operacional do órgão.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" style="background:linear-gradient(135deg,#003087,#00b894)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      </div>
+      <h3>Inteligência e dados</h3>
+      <p>Dashboards gerenciais, integração de dados e soluções de BI para apoiar tomadas de decisão baseadas em evidências na gestão pública.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" style="background:linear-gradient(135deg,#00a3e0,#003087)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h3>Segurança da informação</h3>
+      <p>Auditorias, adequação à LGPD, controles de acesso e planos de continuidade para ambientes governamentais críticos.</p>
+    </article>
+    <article class="card reveal">
+      <div class="card-icon" style="background:linear-gradient(135deg,#00b894,#00a3e0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      </div>
+      <h3>Capacitação técnica</h3>
+      <p>Treinamentos, documentação e transferência de conhecimento para equipes de TI dos órgãos contratantes, garantindo autonomia e continuidade.</p>
+    </article>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     NÚMEROS
+     ══════════════════════════════════════════════ -->
+<section id="numeros">
+  <div class="numeros-grid">
+    <div class="num-item reveal"><strong>+80</strong><p>Projetos entregues</p></div>
+    <div class="num-item reveal"><strong>15+</strong><p>Estados atendidos</p></div>
+    <div class="num-item reveal"><strong>10</strong><p>Anos de mercado</p></div>
+    <div class="num-item reveal"><strong>98%</strong><p>Satisfação dos clientes</p></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     MAPA DE IMPACTO
+     ══════════════════════════════════════════════ -->
+<section id="impacto">
+  <div class="impacto-header reveal">
+    <p class="section-label">Problema central</p>
+    <h2 class="section-title">Quem é impactado e como</h2>
+    <p class="section-sub">Atrasos frequentes, retrabalho e detecção tardia de falhas afetam toda a cadeia de valor — de forma diferente para cada parte interessada.</p>
+  </div>
+
+  <div class="impacto-map reveal">
+    <svg class="imp-svg-lines" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg">
+      <line x1="480" y1="90"  x2="480" y2="175" stroke="rgba(0,163,224,0.25)" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="760" y1="130" x2="560" y2="220" stroke="rgba(0,163,224,0.25)" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="760" y1="380" x2="560" y2="295" stroke="rgba(0,163,224,0.25)" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="480" y1="425" x2="480" y2="340" stroke="rgba(0,163,224,0.25)" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="195" y1="380" x2="405" y2="295" stroke="rgba(0,163,224,0.25)" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="195" y1="130" x2="405" y2="220" stroke="rgba(0,163,224,0.25)" stroke-width="1.5" stroke-dasharray="5,4"/>
+    </svg>
+
+    <div class="imp-center">
+      <svg viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      <strong>Problema Central</strong>
+      <span>Atrasos · Retrabalho · Falhas tardias</span>
+    </div>
+
+    <div class="imp-node n1">
+      <div class="imp-node-icon" style="background:rgba(0,163,224,0.2)">
+        <svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+      </div>
+      <h4>Órgãos públicos</h4>
+      <p>Descontinuidade de serviços essenciais e não conformidade com prazos contratuais.</p>
+      <span class="imp-tag" style="background:rgba(0,163,224,0.15);color:#00a3e0">Cliente direto</span>
+    </div>
+
+    <div class="imp-node n2">
+      <div class="imp-node-icon" style="background:rgba(239,68,68,0.2)">
+        <svg viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+      </div>
+      <h4>Reputação da empresa</h4>
+      <p>Danos à imagem no mercado de licitações e perda de competitividade em novos contratos.</p>
+      <span class="imp-tag" style="background:rgba(239,68,68,0.15);color:#f87171">Risco estratégico</span>
+    </div>
+
+    <div class="imp-node n3">
+      <div class="imp-node-icon" style="background:rgba(245,158,11,0.2)">
+        <svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <h4>Saúde financeira</h4>
+      <p>Penalizações contratuais e custos elevados pelo retrabalho constante.</p>
+      <span class="imp-tag" style="background:rgba(245,158,11,0.15);color:#fbbf24">Impacto financeiro</span>
+    </div>
+
+    <div class="imp-node n4">
+      <div class="imp-node-icon" style="background:rgba(0,184,148,0.2)">
+        <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </div>
+      <h4>Cidadãos</h4>
+      <p>Afetados indiretamente pela indisponibilidade de serviços públicos digitais.</p>
+      <span class="imp-tag" style="background:rgba(0,184,148,0.15);color:#00b894">Usuário final</span>
+    </div>
+
+    <div class="imp-node n5">
+      <div class="imp-node-icon" style="background:rgba(139,92,246,0.2)">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </div>
+      <h4>Equipes de dev.</h4>
+      <p>Sobrecarga, pressão por prazos irrealistas, desmotivação e alta rotatividade.</p>
+      <span class="imp-tag" style="background:rgba(139,92,246,0.15);color:#a78bfa">Impacto interno</span>
+    </div>
+
+    <div class="imp-node n6">
+      <div class="imp-node-icon" style="background:rgba(236,72,153,0.2)">
+        <svg viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+      </div>
+      <h4>Crescimento futuro</h4>
+      <p>Recursos no retrabalho impedem investimento em novos contratos e inovação.</p>
+      <span class="imp-tag" style="background:rgba(236,72,153,0.15);color:#f472b6">Risco de longo prazo</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     MAPA LEAFLET — ROTAS
+     ══════════════════════════════════════════════ -->
+<section id="rotas">
+  <div class="rotas-header reveal">
+    <p class="section-label">Alcance nacional</p>
+    <h2 class="section-title">Rotas de atendimento</h2>
+    <p class="section-sub">Visualize a cobertura da SoluTIx Digital — rotas simuladas entre a sede em Brasília e os principais órgãos públicos atendidos no Brasil.</p>
+  </div>
+
+  <div class="mapa-wrapper">
+    <div id="mapa-leaflet" aria-label="Mapa interativo de rotas"></div>
+
+    <div class="mapa-painel">
+      <div class="mapa-stats-bar">
+        <div>
+          <div class="mapa-stat-val">15</div>
+          <div class="mapa-stat-lbl">Órgãos</div>
+        </div>
+        <div>
+          <div class="mapa-stat-val">12</div>
+          <div class="mapa-stat-lbl">Estados</div>
+        </div>
+        <div>
+          <div class="mapa-stat-val" id="stat-km">—</div>
+          <div class="mapa-stat-lbl">km selecionado</div>
+        </div>
+      </div>
+
+      <div class="mapa-legenda">
+        <h5>Legenda</h5>
+        <div class="leg-item"><div class="leg-dot" style="background:#f59e0b"></div> Sede SoluTIx (Brasília)</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#00a3e0"></div> Órgão atendido</div>
+        <div class="leg-item"><div class="leg-line" style="background:#00a3e0;opacity:0.5"></div> Rota simulada</div>
+        <div class="leg-item"><div class="leg-line" style="background:#f59e0b"></div> Rota selecionada</div>
+      </div>
+
+      <div class="orgao-lista">
+        <h5>Órgãos atendidos</h5>
+        <div id="lista-orgaos"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══════════════════════════════════════════════
+     PROCESSO
+     ══════════════════════════════════════════════ -->
+<section id="processo">
+  <div class="processo-header reveal">
+    <p class="section-label">Como atuamos</p>
+    <h2 class="section-title">Do contrato à entrega</h2>
+    <p class="section-sub" style="margin:0 auto">Metodologia testada em projetos governamentais — previsível, transparente e auditável.</p>
+  </div>
+  <div class="etapas">
+    <div class="etapa reveal">
+      <div class="etapa-num">01</div>
+      <h4>Análise e requisitos</h4>
+      <p>Mapeamos processos, levantamos necessidades e definimos o escopo com o órgão contratante.</p>
+    </div>
+    <div class="etapa reveal">
+      <div class="etapa-num">02</div>
+      <h4>Arquitetura e design</h4>
+      <p>Projetamos a solução com foco em escalabilidade, segurança e integração com sistemas existentes.</p>
+    </div>
+    <div class="etapa reveal">
+      <div class="etapa-num">03</div>
+      <h4>Desenvolvimento ágil</h4>
+      <p>Sprints quinzenais com entregas incrementais, testes contínuos e validação pelo cliente.</p>
+    </div>
+    <div class="etapa reveal">
+      <div class="etapa-num">04</div>
+      <h4>Implantação e treinamento</h4>
+      <p>Deploy assistido, capacitação das equipes e documentação completa da solução entregue.</p>
+    </div>
+    <div class="etapa reveal">
+      <div class="etapa-num">05</div>
+      <h4>Sustentação contínua</h4>
+      <p>SLA garantido, monitoramento proativo e evoluções conforme novas demandas regulatórias.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CTA COTAÇÃO
+     ══════════════════════════════════════════════ -->
+<section style="background: var(--blue-deep); padding: 80px 6%; text-align: center;">
+  <div style="max-width: 620px; margin: 0 auto;" class="reveal">
+    <p class="section-label" style="color: var(--blue-sky);">Pronto para começar?</p>
+    <h2 class="section-title" style="color: #fff; margin-bottom: 1rem;">Monte sua proposta em minutos</h2>
+    <p style="color: rgba(255,255,255,0.6); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem;">Selecione os serviços, informe o porte do seu órgão e receba uma estimativa de valor — sem compromisso.</p>
+    <a href="cotacao.html" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2.2rem;">
+      Solicitar cotação gratuita →
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════ -->
+<footer id="contato">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">SoluTI<span>x</span> Digital</div>
+      <p>Transformando a gestão pública brasileira com tecnologia de qualidade, ética e compromisso com o resultado.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navegação</h5>
+      <ul>
+        <li><a href="#sobre">Empresa</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#impacto">Impacto</a></li>
+        <li><a href="#rotas">Rotas</a></li>
+        <li><a href="#diagnostico">Diagnóstico</a></li>
+        <li><a href="#processo">Como atuamos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contato</h5>
+      <ul>
+        <li><a href="mailto:contato@solutix.com.br">contato@solutix.com.br</a></li>
+        <li><a href="tel:+556133330000">(61) 3333-0000</a></li>
+        <li><a href="#">Brasília – DF</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SoluTIx Digital. Todos os direitos reservados.</span>
+    <span>CNPJ 00.000.000/0001-00</span>
+  </div>
+</footer>
+
+<!-- Scripts (ordem importa) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="mapa.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>

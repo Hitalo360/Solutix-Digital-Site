@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoluTIx Digital | Serviços & Qualidade de Software</title>
+  <meta name="description" content="Conheça os serviços da SoluTIx Digital e nossa metodologia de gestão da qualidade para sistemas públicos.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── HERO SERVIÇOS ─────────────────────────── */
+    .hero-servicos {
+      min-height: 52vh;
+      display: flex;
+      align-items: center;
+      background: var(--blue-deep);
+      padding: 120px 6% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-servicos .hero-bg {
+      background:
+        radial-gradient(ellipse 60% 80% at 90% 50%, rgba(0,163,224,0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at 5% 80%,  rgba(0,184,148,0.08) 0%, transparent 60%);
+    }
+    .hero-servicos-content { position: relative; max-width: 700px; }
+    .hero-servicos-content .hero-badge { margin-bottom: 1.2rem; }
+    .hero-servicos-content h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      color: #fff;
+      line-height: 1;
+      letter-spacing: 2px;
+      margin-bottom: 1.2rem;
+    }
+    .hero-servicos-content h1 em { font-style: normal; color: var(--blue-sky); }
+    .hero-servicos-content p {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 540px;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: rgba(255,255,255,0.45);
+      margin-bottom: 1.4rem;
+    }
+    .breadcrumb a { color: var(--blue-sky); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: 0.4; }
+
+    /* ── SERVIÇOS EXPANDIDOS ─────────────────── */
+    #servicos-full { background: #f0f4fb; }
+    .srv-tabs {
+      display: flex; gap: 0.6rem; flex-wrap: wrap;
+      max-width: 1200px; margin: 0 auto 3rem;
+    }
+    .srv-tab {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--gray-lt);
+      background: #fff;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--gray-text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .srv-tab:hover, .srv-tab.ativo {
+      background: var(--blue-deep); color: #fff; border-color: var(--blue-deep);
+    }
+    .srv-cards-full {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .srv-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 2.2rem;
+      border: 1.5px solid var(--gray-lt);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      display: flex; flex-direction: column; gap: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .srv-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue-sky), var(--teal));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .srv-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,32,92,0.10); border-color: rgba(0,163,224,0.3); }
+    .srv-card:hover::after { opacity: 1; }
+    .srv-card-header { display: flex; align-items: flex-start; gap: 1rem; }
+    .srv-card-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .srv-card-icon svg { width: 28px; height: 28px; }
+    .srv-card-title h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--blue-deep);
+      margin-bottom: 0.25rem;
+    }
+    .srv-card-title .srv-area {
+      font-size: 0.76rem; font-weight: 600;
+      color: var(--blue-sky); text-transform: uppercase; letter-spacing: 0.07em;
+    }
+    .srv-card p { font-size: 0.9rem; color: var(--gray-text); line-height: 1.7; }
+    .srv-features {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+    .srv-features li {
+      display: flex; align-items: center; gap: 0.55rem;
+      font-size: 0.85rem; color: var(--gray-text);
+    }
+    .srv-features li::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0;
+    }
+    .srv-cta-mini {
+      margin-top: auto;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.85rem; font-weight: 600; color: var(--blue-sky);
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .srv-cta-mini:hover { gap: 0.7rem; }
+
+    /* ── SEÇÃO QA / ETAPA 2 ──────────────────── */
+    #qualidade { background: var(--white); }
+    .qa-intro { max-width: 700px; margin: 0 auto 3.5rem; text-align: center; }
+
+    .qa-ciclo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      max-width: 1100px;
+      margin: 0 auto 4rem;
+    }
+    @media (max-width: 780px) { .qa-ciclo { grid-template-columns: 1fr; } }
+
+    .qa-fase {
+      background: #fff;
+      border-radius: 18px;
+      border: 1.5px solid var(--gray-lt);
+      padding: 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .qa-fase-num {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem; line-height: 1;
+      color: var(--gray-lt); pointer-events: none;
+    }
+    .qa-fase-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+    }
+    .qa-fase h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--blue-deep);
+    }
+    .qa-fase p { font-size: 0.88rem; color: var(--gray-text); line-height: 1.7; }
+
+    /* bloco de código */
+    .code-block {
+      background: #0d1f3c;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: #a8d8f0;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+    .code-block .cm  { color: rgba(168,216,240,0.45); }
+    .code-block .kw  { color: #f59e0b; }
+    .code-block .fn  { color: #00b894; }
+    .code-block .err { color: #f87171; }
+    .code-block .ok  { color: #34d399; }
+    .code-block .str { color: #a78bfa; }
+
+    /* falha/correção timeline */
+    .qa-timeline {
+      max-width: 900px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .qa-tl-item {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--gray-lt);
+    }
+    .qa-tl-item:last-child { border-bottom: none; }
+    @media (max-width: 700px) {
+      .qa-tl-item { grid-template-columns: 1fr; gap: 1rem; }
+    }
+    .qa-tl-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem; color: var(--blue-sky);
+      line-height: 1; padding-top: 0.2rem;
+    }
+    .qa-tl-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--gray-text); margin-top: 0.2rem;
+    }
+    .qa-tl-before h4, .qa-tl-after h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .qa-tl-before h4 { color: #ef4444; }
+    .qa-tl-after  h4 { color: #22c55e; }
+    .qa-tl-before p, .qa-tl-after p {
+      font-size: 0.85rem; color: var(--gray-text); line-height: 1.65;
+    }
+
+    /* resultado */
+    .qa-result-bar {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 20px; max-width: 800px;
+      margin: 3.5rem auto 0;
+    }
+    @media (max-width: 640px) { .qa-result-bar { grid-template-columns: 1fr; } }
+    .qa-result-card {
+      background: var(--blue-deep); color: #fff;
+      border-radius: 16px; padding: 1.8rem 1.5rem; text-align: center;
+    }
+    .qa-result-card strong {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem; color: var(--teal); line-height: 1;
+    }
+    .qa-result-card span {
+      font-size: 0.8rem; color: rgba(255,255,255,0.55);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    /* ── CTA FINAL ───────────────────────────── */
+    #cta-servicos {
+      background: var(--blue-deep);
+      padding: 100px 6%;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    #cta-servicos .hero-bg {
+      background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0,163,224,0.12) 0%, transparent 70%);
+    }
+    #cta-servicos h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      color: #fff; letter-spacing: 2px;
+      margin-bottom: 1rem; position: relative;
+    }
+    #cta-servicos h2 em { font-style: normal; color: var(--teal); }
+    #cta-servicos p {
+      color: rgba(255,255,255,0.6); max-width: 520px;
+      margin: 0 auto 2.5rem; font-size: 1rem; line-height: 1.75;
+      position: relative;
+    }
+    #cta-servicos .btn-group { justify-content: center; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">SoluTI<span>x</span></div>
+  <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav aria-label="Menu principal">
+    <ul>
+      <li><a href="index.html#sobre">Empresa</a></li>
+      <li><a href="servicos.html" style="color:#fff">Serviços</a></li>
+      <li><a href="index.html#impacto">Impacto</a></li>
+      <li><a href="index.html#rotas">Rotas</a></li>
+      <li><a href="index.html#diagnostico">Diagnóstico</a></li>
+      <li><a href="index.html#modernizacao">Modernização</a></li>
+      <li><a href="index.html#contato" class="nav-cta">Fale conosco</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero-servicos">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-servicos-content">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Serviços</span>
+    </div>
+    <div class="hero-badge">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+      Gestão da Qualidade · Etapa 2
+    </div>
+    <h1>Serviços que <em>garantem</em> qualidade em cada entrega</h1>
+    <p>Do desenvolvimento à sustentação — com testes estruturados, processos auditáveis e metodologia validada nos três níveis de qualidade de software.</p>
+  </div>
+</section>
+
+<!-- SERVIÇOS EXPANDIDOS -->
+<section id="servicos-full">
+  <div class="servicos-header reveal" style="max-width:1200px;margin:0 auto 2rem;">
+    <div>
+      <p class="section-label">O que fazemos</p>
+      <h2 class="section-title">Portfólio completo</h2>
+    </div>
+    <p class="section-sub">Cada serviço conta com processo de qualidade documentado, SLA definido e entregas rastreáveis.</p>
+  </div>
+
+  <div class="srv-tabs">
+    <button class="srv-tab" data-filtro="todos">Todos</button>
+    <button class="srv-tab" data-filtro="desenvolvimento">Desenvolvimento</button>
+    <button class="srv-tab" data-filtro="sustentacao">Sustentação</button>
+    <button class="srv-tab" data-filtro="modernizacao">Modernização</button>
+    <button class="srv-tab" data-filtro="dados">Dados & BI</button>
+    <button class="srv-tab" data-filtro="seguranca">Segurança</button>
+    <button class="srv-tab" data-filtro="capacitacao">Capacitação</button>
+  </div>
+
+  <div class="srv-cards-full">
+
+    <article class="srv-card reveal" data-area="desenvolvimento">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#003087,#00a3e0)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Desenvolvimento</div>
+          <h3>Sistemas sob medida</h3>
+        </div>
+      </div>
+      <p>Criação de soluções web e corporativas com foco em usabilidade, performance e conformidade com a arquitetura de referência do governo federal.</p>
+      <ul class="srv-features">
+        <li>Aplicações web responsivas e acessíveis (WCAG 2.1)</li>
+        <li>Integração com sistemas legados e APIs de governo</li>
+        <li>Conformidade com LGPD e normas SISP</li>
+        <li>Cobertura de testes ≥ 80% nas funções críticas</li>
+      </ul>
+      <a href="index.html#contato" class="srv-cta-mini">Solicitar proposta →</a>
+    </article>
+
+    <article class="srv-card reveal" data-area="sustentacao">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00a3e0,#00b894)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" fill="#fff" stroke="none"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Sustentação</div>
+          <h3>Manutenção contínua</h3>
+        </div>
+      </div>
+      <p>Suporte técnico contínuo, correções evolutivas, SLA definido e equipe dedicada para garantir disponibilidade e estabilidade dos sistemas.</p>
+      <ul class="srv-features">
+        <li>SLA com resposta em até 4h para incidentes críticos</li>
+        <li>Monitoramento proativo 24/7</li>
+        <li>Gestão de vulnerabilidades e patches de segurança</li>
+        <li>Relatórios mensais de disponibilidade e qualidade</li>
+      </ul>
+      <a href="index.html#contato" class="srv-cta-mini">Ver SLA →</a>
+    </article>
+
+    <article class="srv-card reveal" data-area="modernizacao">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00b894,#003087)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Modernização</div>
+          <h3>Transformação digital</h3>
+        </div>
+      </div>
+      <p>Modernização de legados, migração para cloud e implantação de práticas DevOps para aumentar a eficiência operacional do órgão.</p>
+      <ul class="srv-features">
+        <li>Diagnóstico e roadmap de modernização</li>
+        <li>Migração incremental sem interrupção de serviços</li>
+        <li>Implantação de pipelines CI/CD</li>
+        <li>Treinamento das equipes do órgão contratante</li>
+      </ul>
+      <a href="index.html#contato" class="srv-cta-mini">Iniciar diagnóstico →</a>
+    </article>
+
+    <article class="srv-card reveal" data-area="dados">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#003087,#00b894)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Dados & BI</div>
+          <h3>Inteligência e dados</h3>
+        </div>
+      </div>
+      <p>Dashboards gerenciais, integração de dados e soluções de BI para apoiar tomadas de decisão baseadas em evidências na gestão pública.</p>
+      <ul class="srv-features">
+        <li>Painéis interativos com dados em tempo real</li>
+        <li>Integração com fontes como SIAFI, SIAPE e SEI</li>
+        <li>Exportações em formatos auditáveis</li>
+        <li>Capacitação dos gestores para uso das ferramentas</li>
+      </ul>
+      <a href="index.html#contato" class="srv-cta-mini">Solicitar demo →</a>
+    </article>
+
+    <article class="srv-card reveal" data-area="seguranca">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00a3e0,#003087)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Segurança</div>
+          <h3>Segurança da informação</h3>
+        </div>
+      </div>
+      <p>Auditorias, adequação à LGPD, controles de acesso e planos de continuidade para ambientes governamentais críticos.</p>
+      <ul class="srv-features">
+        <li>Pentest e análise de vulnerabilidades</li>
+        <li>Adequação à LGPD e IN SGD/ME nº 01/2019</li>
+        <li>Planos de contingência e recuperação de desastres</li>
+        <li>Gestão de identidade e controle de acesso</li>
+      </ul>
+      <a href="index.html#contato" class="srv-cta-mini">Agendar auditoria →</a>
+    </article>
+
+    <article class="srv-card reveal" data-area="capacitacao">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00b894,#00a3e0)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Capacitação</div>
+          <h3>Treinamento técnico</h3>
+        </div>
+      </div>
+      <p>Treinamentos, documentação e transferência de conhecimento para equipes de TI dos órgãos contratantes, garantindo autonomia e continuidade.</p>
+      <ul class="srv-features">
+        <li>Workshops de boas práticas e DevOps</li>
+        <li>Documentação técnica e manuais de operação</li>
+        <li>Suporte pós-implantação com transferência gradual</li>
+        <li>Avaliação de maturidade da equipe contratante</li>
+      </ul>
+      <a href="index.html#contato" class="srv-cta-mini">Montar programa →</a>
+    </article>
+
+  </div>
+</section>
+
+<!-- GESTÃO DA QUALIDADE — ETAPA 2 -->
+<section id="qualidade">
+  <div class="qa-intro reveal">
+    <p class="section-label">Gestão da Qualidade · Etapa 2</p>
+    <h2 class="section-title">Testes, Falhas e Correções</h2>
+    <p class="section-sub" style="margin:0 auto">Aplicamos um ciclo completo de qualidade em três níveis para cada sistema entregue — garantindo excelência e confiabilidade nos sistemas públicos.</p>
+  </div>
+
+  <!-- Três fases do ciclo QA -->
+  <div class="qa-ciclo">
+
+    <div class="qa-fase reveal">
+      <div class="qa-fase-num">01</div>
+      <span class="qa-fase-badge" style="background:rgba(0,163,224,0.12);color:var(--blue-sky)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Teste Unitário
+      </span>
+      <h3>Validação de funções isoladas</h3>
+      <p>Cada função crítica é testada individualmente antes de qualquer integração. Erros de lógica são capturados na origem, antes de gerar impacto financeiro ou operacional.</p>
+      <div class="code-block">
+<span class="cm"># Falha identificada</span>
+<span class="err">return valor_mensal + meses</span>
+<span class="cm"># AssertionError: 1012 != 12000</span>
+
+<span class="cm"># Correção aplicada</span>
+<span class="kw">def</span> <span class="fn">calcular_valor_total</span>(self, v, m):
+  <span class="kw">if</span> v &lt; 0 <span class="kw">or</span> m &lt; 0:
+    <span class="kw">raise</span> ValueError(<span class="str">"Valores negativos"</span>)
+  <span class="ok">return v * m  # ✓ PASS</span>
+      </div>
+    </div>
+
+    <div class="qa-fase reveal">
+      <div class="qa-fase-num">02</div>
+      <span class="qa-fase-badge" style="background:rgba(0,184,148,0.12);color:var(--teal)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Teste de Integração
+      </span>
+      <h3>Comunicação entre camadas</h3>
+      <p>Verificamos a compatibilidade de interfaces entre componentes. Divergências de nomenclatura ou contratos de API são detectadas antes de chegarem ao ambiente de produção.</p>
+      <div class="code-block">
+<span class="cm"># Falha: método inexistente</span>
+<span class="err">AttributeError: 'MockDB'</span>
+<span class="err">  has no attr 'get_by_id'</span>
+
+<span class="cm"># Correção: sincronização de interface</span>
+<span class="kw">def</span> <span class="fn">buscar_contrato</span>(self, id):
+  <span class="ok">return self.db.find_id(id)  # ✓ PASS</span>
+      </div>
+    </div>
+
+    <div class="qa-fase reveal">
+      <div class="qa-fase-num">03</div>
+      <span class="qa-fase-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Teste de Aceitação
+      </span>
+      <h3>Validação pelo usuário final</h3>
+      <p>Garantimos que a interface e a experiência atendem às expectativas reais dos usuários — com formatações corretas, rótulos descritivos e tratamento de erros visível.</p>
+      <div class="code-block">
+<span class="cm"># Falha: saída sem formatação</span>
+<span class="err">"Resultado: 1012"</span>
+
+<span class="cm"># Correção: UI humanizada</span>
+<span class="kw">def</span> <span class="fn">exibir_resumo</span>(self, v, m):
+  total = self.service.calcular(v, m)
+  <span class="ok">return f<span class="str">"Valor Total: R$ {total:.2f}"</span></span>
+<span class="ok">  # ✓ "Valor Total: R$ 12.000,00"</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Timeline falha → correção -->
+  <p class="section-label" style="text-align:center;margin-bottom:2rem">Documentação das falhas e correções</p>
+  <div class="qa-timeline">
+
+    <div class="qa-tl-item reveal">
+      <div>
+        <div class="qa-tl-num">01</div>
+        <div class="qa-tl-label">Unitário</div>
+      </div>
+      <div class="qa-tl-before">
+        <h4>✗ Falha identificada</h4>
+        <p>A função <code>calcular_valor_total</code> usava adição (+) em vez de multiplicação (*), subestimando drasticamente os valores de contrato. Resultado: <code>1012</code> em vez de <code>12000</code>.</p>
+      </div>
+      <div class="qa-tl-after">
+        <h4>✓ Correção aplicada</h4>
+        <p>Operador corrigido para multiplicação. Adicionada validação de entradas negativas com <code>ValueError</code>. Teste <code>test_calcular_valor_total</code> aprovado com 100% de cobertura.</p>
+      </div>
+    </div>
+
+    <div class="qa-tl-item reveal">
+      <div>
+        <div class="qa-tl-num">02</div>
+        <div class="qa-tl-label">Integração</div>
+      </div>
+      <div class="qa-tl-before">
+        <h4>✗ Falha identificada</h4>
+        <p><code>ContratoService</code> chamava <code>get_by_id</code>, mas <code>MockDB</code> implementava <code>find_id</code>. Bloqueio total de consultas ao banco — sistema inoperante para buscas.</p>
+      </div>
+      <div class="qa-tl-after">
+        <h4>✓ Correção aplicada</h4>
+        <p>Método ajustado para <code>find_id</code> em toda a camada de serviço. Interfaces sincronizadas entre componentes. Teste <code>test_integracao_banco</code> aprovado.</p>
+      </div>
+    </div>
+
+    <div class="qa-tl-item reveal">
+      <div>
+        <div class="qa-tl-num">03</div>
+        <div class="qa-tl-label">Aceitação</div>
+      </div>
+      <div class="qa-tl-before">
+        <h4>✗ Falha identificada</h4>
+        <p>Interface exibia valor bruto sem formatação de moeda nem rótulo descritivo. Output <code>"Resultado: 1012"</code> comprometia a usabilidade e legibilidade para o usuário final.</p>
+      </div>
+      <div class="qa-tl-after">
+        <h4>✓ Correção aplicada</h4>
+        <p>Formatação BRL implementada (<code>R$ {total:.2f}</code>), rótulo semântico adicionado e tratamento <code>try/except</code> incluído. Teste <code>test_aceitacao_usuario</code> aprovado.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Resultado final -->
+  <div class="qa-result-bar">
+    <div class="qa-result-card reveal">
+      <strong>100%</strong>
+      <span>Taxa de sucesso nos testes</span>
+    </div>
+    <div class="qa-result-card reveal">
+      <strong>ZERO</strong>
+      <span>Falhas críticas em produção</span>
+    </div>
+    <div class="qa-result-card reveal">
+      <strong>3/3</strong>
+      <span>Níveis de teste aprovados</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-servicos">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <h2 class="reveal">Pronto para <em>elevar</em> a qualidade<br>do seu sistema?</h2>
+  <p class="reveal">Nossa equipe aplica a mesma metodologia rigorosa de testes e qualidade em cada projeto — do contrato licitatório à entrega final.</p>
+  <div class="btn-group reveal">
+    <a href="index.html#contato" class="btn btn-primary">Falar com a equipe</a>
+    <a href="index.html#processo" class="btn btn-ghost">Ver nossa metodologia</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contato">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">SoluTI<span>x</span> Digital</div>
+      <p>Transformando a gestão pública brasileira com tecnologia de qualidade, ética e compromisso com o resultado.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navegação</h5>
+      <ul>
+        <li><a href="index.html#sobre">Empresa</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="index.html#impacto">Impacto</a></li>
+        <li><a href="index.html#diagnostico">Diagnóstico</a></li>
+        <li><a href="index.html#modernizacao">Modernização</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contato</h5>
+      <ul>
+        <li><a href="mailto:contato@solutix.com.br">contato@solutix.com.br</a></li>
+        <li><a href="tel:+556133330000">(61) 3333-0000</a></li>
+        <li><a href="#">Brasília – DF</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SoluTIx Digital. Todos os direitos reservados.</span>
+    <span>CNPJ 00.000.000/0001-00</span>
+  </div>
+</footer>
+
+   </div>
+        </div>
+      </div>
+
+      <!-- painel direito: sistema interativo -->
+      <div class="portfolio-sistema-wrap">
+        <div class="sistema-topbar">
+          <div class="sistema-dots">
+            <span style="background:#ef4444"></span>
+            <span style="background:#f59e0b"></span>
+            <span style="background:#22c55e"></span>
+          </div>
+          <span class="sistema-filename">sistema_contratos_qa.py — SoluTIx Digital</span>
+        </div>
+        <div id="qa-sistema-embed"></div>
+      </div>
+
+    </div>
+
+    <!-- tags rodapé do card -->
+    <div class="portfolio-tags">
+      <span class="portfolio-tag-pill" style="background:rgba(0,184,148,0.15);color:var(--teal)">Python · unittest</span>
+      <span class="portfolio-tag-pill" style="background:rgba(0,163,224,0.15);color:var(--blue-sky)">3 níveis de teste</span>
+      <span class="portfolio-tag-pill" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Taxa de sucesso: 100%</span>
+      <span class="portfolio-tag-pill" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">MockDB integrado</span>
+    </div>
+
+  </div>
+  <!-- ══ FIM CARD DESTAQUE ══ -->
+
+  <!-- ══ CARDS DE SERVIÇO ══ -->
+  <div class="srv-cards-full" id="srv-cards-grid">
+
+    <article class="srv-card reveal" data-srv="des" onclick="selecionarServico('des', this)">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#003087,#00a3e0)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Desenvolvimento</div>
+          <h3>Sistemas sob medida</h3>
+        </div>
+      </div>
+      <p>Criação de soluções web e corporativas com foco em usabilidade, performance e conformidade com a arquitetura de referência do governo federal.</p>
+      <ul class="srv-features">
+        <li>Aplicações web responsivas e acessíveis (WCAG 2.1)</li>
+        <li>Integração com sistemas legados e APIs de governo</li>
+        <li>Conformidade com LGPD e normas SISP</li>
+        <li>Cobertura de testes ≥ 80% nas funções críticas</li>
+      </ul>
+      <div class="srv-card-foot">
+        <div>
+          <div class="srv-price-lbl">A partir de</div>
+          <div class="srv-price"><sup>R$</sup> 8.500</div>
+          <div class="srv-price-per">por mês · contrato mín. 12 meses</div>
+        </div>
+        <button class="btn-selecionar">
+          Ver no sistema
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="srv-card reveal" data-srv="man" onclick="selecionarServico('man', this)">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00a3e0,#00b894)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" fill="#fff" stroke="none"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Sustentação</div>
+          <h3>Manutenção contínua</h3>
+        </div>
+      </div>
+      <p>Suporte técnico contínuo, correções evolutivas, SLA definido e equipe dedicada para garantir disponibilidade e estabilidade dos sistemas.</p>
+      <ul class="srv-features">
+        <li>SLA com resposta em até 4h para incidentes críticos</li>
+        <li>Monitoramento proativo 24/7</li>
+        <li>Gestão de vulnerabilidades e patches de segurança</li>
+        <li>Relatórios mensais de disponibilidade e qualidade</li>
+      </ul>
+      <div class="srv-card-foot">
+        <div>
+          <div class="srv-price-lbl">A partir de</div>
+          <div class="srv-price"><sup>R$</sup> 3.200</div>
+          <div class="srv-price-per">por mês · SLA 4h garantido</div>
+        </div>
+        <button class="btn-selecionar">
+          Ver no sistema
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="srv-card reveal" data-srv="dig" onclick="selecionarServico('dig', this)">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00b894,#003087)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Modernização</div>
+          <h3>Transformação digital</h3>
+        </div>
+      </div>
+      <p>Modernização de legados, migração para cloud e implantação de práticas DevOps para aumentar a eficiência operacional do órgão.</p>
+      <ul class="srv-features">
+        <li>Diagnóstico e roadmap de modernização</li>
+        <li>Migração incremental sem interrupção de serviços</li>
+        <li>Implantação de pipelines CI/CD</li>
+        <li>Treinamento das equipes do órgão contratante</li>
+      </ul>
+      <div class="srv-card-foot">
+        <div>
+          <div class="srv-price-lbl">A partir de</div>
+          <div class="srv-price"><sup>R$</sup> 12.000</div>
+          <div class="srv-price-per">por mês · projeto mín. 6 meses</div>
+        </div>
+        <button class="btn-selecionar">
+          Ver no sistema
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="srv-card reveal" data-srv="bi" onclick="selecionarServico('bi', this)">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#003087,#00b894)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Dados & BI</div>
+          <h3>Inteligência e dados</h3>
+        </div>
+      </div>
+      <p>Dashboards gerenciais, integração de dados e soluções de BI para apoiar tomadas de decisão baseadas em evidências na gestão pública.</p>
+      <ul class="srv-features">
+        <li>Painéis interativos com dados em tempo real</li>
+        <li>Integração com fontes como SIAFI, SIAPE e SEI</li>
+        <li>Exportações em formatos auditáveis</li>
+        <li>Capacitação dos gestores para uso das ferramentas</li>
+      </ul>
+      <div class="srv-card-foot">
+        <div>
+          <div class="srv-price-lbl">A partir de</div>
+          <div class="srv-price"><sup>R$</sup> 5.500</div>
+          <div class="srv-price-per">por mês · implantação inclusa</div>
+        </div>
+        <button class="btn-selecionar">
+          Ver no sistema
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="srv-card reveal" data-srv="seg" onclick="selecionarServico('seg', this)">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00a3e0,#003087)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Segurança</div>
+          <h3>Segurança da informação</h3>
+        </div>
+      </div>
+      <p>Auditorias, adequação à LGPD, controles de acesso e planos de continuidade para ambientes governamentais críticos.</p>
+      <ul class="srv-features">
+        <li>Pentest e análise de vulnerabilidades</li>
+        <li>Adequação à LGPD e IN SGD/ME nº 01/2019</li>
+        <li>Planos de contingência e recuperação de desastres</li>
+        <li>Gestão de identidade e controle de acesso</li>
+      </ul>
+      <div class="srv-card-foot">
+        <div>
+          <div class="srv-price-lbl">A partir de</div>
+          <div class="srv-price"><sup>R$</sup> 4.800</div>
+          <div class="srv-price-per">por mês · auditoria mensal inclusa</div>
+        </div>
+        <button class="btn-selecionar">
+          Ver no sistema
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="srv-card reveal" data-srv="cap" onclick="selecionarServico('cap', this)">
+      <div class="srv-card-header">
+        <div class="srv-card-icon" style="background:linear-gradient(135deg,#00b894,#00a3e0)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <div class="srv-card-title">
+          <div class="srv-area">Capacitação</div>
+          <h3>Treinamento técnico</h3>
+        </div>
+      </div>
+      <p>Treinamentos, documentação e transferência de conhecimento para equipes de TI dos órgãos contratantes, garantindo autonomia e continuidade.</p>
+      <ul class="srv-features">
+        <li>Workshops de boas práticas e DevOps</li>
+        <li>Documentação técnica e manuais de operação</li>
+        <li>Suporte pós-implantação com transferência gradual</li>
+        <li>Avaliação de maturidade da equipe contratante</li>
+      </ul>
+      <div class="srv-card-foot">
+        <div>
+          <div class="srv-price-lbl">A partir de</div>
+          <div class="srv-price"><sup>R$</sup> 2.200</div>
+          <div class="srv-price-per">por mês · turmas de até 20 pessoas</div>
+        </div>
+        <button class="btn-selecionar">
+          Ver no sistema
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     GESTÃO DA QUALIDADE — ETAPA 2
+     ══════════════════════════════════════ -->
+<section id="qualidade">
+  <div class="qa-intro reveal">
+    <p class="section-label">Gestão da Qualidade · Etapa 2</p>
+    <h2 class="section-title">Testes, Falhas e Correções</h2>
+    <p class="section-sub" style="margin:0 auto">Aplicamos um ciclo completo de qualidade em três níveis para cada sistema entregue — garantindo excelência e confiabilidade nos sistemas públicos.</p>
+  </div>
+
+  <div class="qa-ciclo">
+    <div class="qa-fase reveal">
+      <div class="qa-fase-num">01</div>
+      <span class="qa-fase-badge" style="background:rgba(0,163,224,0.12);color:var(--blue-sky)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Teste Unitário
+      </span>
+      <h3>Validação de funções isoladas</h3>
+      <p>Cada função crítica é testada individualmente antes de qualquer integração. Erros de lógica são capturados na origem.</p>
+      <div class="code-block">
+<span class="cm"># Falha identificada</span>
+<span class="err">return valor_mensal + meses</span>
+<span class="cm"># AssertionError: 1012 != 12000</span>
+
+<span class="cm"># Correção aplicada</span>
+<span class="kw">def</span> <span class="fn">calcular_valor_total</span>(self, v, m):
+  <span class="kw">if</span> v &lt; 0 <span class="kw">or</span> m &lt; 0:
+    <span class="kw">raise</span> ValueError(<span class="str">"Valores negativos"</span>)
+  <span class="ok">return v * m  # ✓ PASS</span>
+      </div>
+    </div>
+
+    <div class="qa-fase reveal">
+      <div class="qa-fase-num">02</div>
+      <span class="qa-fase-badge" style="background:rgba(0,184,148,0.12);color:var(--teal)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Teste de Integração
+      </span>
+      <h3>Comunicação entre camadas</h3>
+      <p>Verificamos a compatibilidade de interfaces entre componentes. Divergências de API são detectadas antes da produção.</p>
+      <div class="code-block">
+<span class="cm"># Falha: método inexistente</span>
+<span class="err">AttributeError: 'MockDB'</span>
+<span class="err">  has no attr 'get_by_id'</span>
+
+<span class="cm"># Correção: sincronização</span>
+<span class="kw">def</span> <span class="fn">buscar_contrato</span>(self, id):
+  <span class="ok">return self.db.find_id(id)  # ✓</span>
+      </div>
+    </div>
+
+    <div class="qa-fase reveal">
+      <div class="qa-fase-num">03</div>
+      <span class="qa-fase-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Teste de Aceitação
+      </span>
+      <h3>Validação pelo usuário final</h3>
+      <p>Interface e experiência validadas com formatações corretas, rótulos descritivos e tratamento de erros visível.</p>
+      <div class="code-block">
+<span class="cm"># Falha: saída sem formatação</span>
+<span class="err">"Resultado: 1012"</span>
+
+<span class="cm"># Correção: UI humanizada</span>
+<span class="kw">def</span> <span class="fn">exibir_resumo</span>(self, v, m):
+  total = self.service.calcular(v, m)
+  <span class="ok">return f<span class="str">"R$ {total:.2f}"</span>  # ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label" style="text-align:center;margin-bottom:2rem">Documentação das falhas e correções</p>
+  <div class="qa-timeline">
+    <div class="qa-tl-item reveal">
+      <div><div class="qa-tl-num">01</div><div class="qa-tl-label">Unitário</div></div>
+      <div class="qa-tl-before">
+        <h4>✗ Falha identificada</h4>
+        <p>A função <code>calcular_valor_total</code> usava adição (+) em vez de multiplicação (*), subestimando drasticamente os valores de contrato. Resultado: <code>1012</code> em vez de <code>12000</code>.</p>
+      </div>
+      <div class="qa-tl-after">
+        <h4>✓ Correção aplicada</h4>
+        <p>Operador corrigido para multiplicação. Validação de entradas negativas com <code>ValueError</code>. Teste <code>test_calcular_valor_total</code> aprovado com 100% de cobertura.</p>
+      </div>
+    </div>
+    <div class="qa-tl-item reveal">
+      <div><div class="qa-tl-num">02</div><div class="qa-tl-label">Integração</div></div>
+      <div class="qa-tl-before">
+        <h4>✗ Falha identificada</h4>
+        <p><code>ContratoService</code> chamava <code>get_by_id</code>, mas <code>MockDB</code> implementava <code>find_id</code>. Bloqueio total de consultas — sistema inoperante para buscas.</p>
+      </div>
+      <div class="qa-tl-after">
+        <h4>✓ Correção aplicada</h4>
+        <p>Método ajustado para <code>find_id</code> em toda a camada de serviço. Interfaces sincronizadas. Teste <code>test_integracao_banco</code> aprovado.</p>
+      </div>
+    </div>
+    <div class="qa-tl-item reveal">
+      <div><div class="qa-tl-num">03</div><div class="qa-tl-label">Aceitação</div></div>
+      <div class="qa-tl-before">
+        <h4>✗ Falha identificada</h4>
+        <p>Interface exibia <code>"Resultado: 1012"</code> sem formatação BRL nem rótulo descritivo — comprometendo a usabilidade do usuário final.</p>
+      </div>
+      <div class="qa-tl-after">
+        <h4>✓ Correção aplicada</h4>
+        <p>Formatação BRL (<code>R$ {total:.2f}</code>), rótulo semântico e <code>try/except</code> implementados. Teste <code>test_aceitacao_usuario</code> aprovado.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-result-bar">
+    <div class="qa-result-card reveal"><strong>100%</strong><span>Taxa de sucesso nos testes</span></div>
+    <div class="qa-result-card reveal"><strong>ZERO</strong><span>Falhas críticas em produção</span></div>
+    <div class="qa-result-card reveal"><strong>3/3</strong><span>Níveis de teste aprovados</span></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta-servicos">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <h2 class="reveal">Pronto para <em>elevar</em> a qualidade<br>do seu sistema?</h2>
+  <p class="reveal">Nossa equipe aplica a mesma metodologia rigorosa de testes e qualidade em cada projeto — do contrato licitatório à entrega final.</p>
+  <div class="btn-group reveal">
+    <a href="index.html#contato" class="btn btn-primary">Falar com a equipe</a>
+    <a href="index.html#processo" class="btn btn-ghost">Ver nossa metodologia</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contato">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">SoluTI<span>x</span> Digital</div>
+      <p>Transformando a gestão pública brasileira com tecnologia de qualidade, ética e compromisso com o resultado.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navegação</h5>
+      <ul>
+        <li><a href="index.html#sobre">Empresa</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="index.html#impacto">Impacto</a></li>
+        <li><a href="index.html#diagnostico">Diagnóstico</a></li>
+        <li><a href="index.html#modernizacao">Modernização</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contato</h5>
+      <ul>
+        <li><a href="mailto:contato@solutix.com.br">contato@solutix.com.br</a></li>
+        <li><a href="tel:+556133330000">(61) 3333-0000</a></li>
+        <li><a href="#">Brasília – DF</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SoluTIx Digital. Todos os direitos reservados.</span>
+    <span>CNPJ 00.000.000/0001-00</span>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     DADOS DOS SERVIÇOS + SISTEMA QA
+     ══════════════════════════════════════ -->
+<script>
+(function(){
+
+/* ── BASE DE DADOS DOS SERVIÇOS ────────────────── */
+const SERVICOS = {
+  des: {
+    area: 'Desenvolvimento',
+    nome: 'Sistemas sob medida',
+    desc: 'Criação de soluções web e corporativas com foco em usabilidade, performance e conformidade com a arquitetura de referência do governo federal.',
+    features: [
+      'Aplicações web responsivas e acessíveis (WCAG 2.1)',
+      'Integração com sistemas legados e APIs de governo',
+      'Conformidade com LGPD e normas SISP',
+      'Cobertura de testes ≥ 80% nas funções críticas'
+    ],
+    vm: 8500, meses: 24,
+    preco: '8.500', per: 'por mês · contrato mín. 12 meses'
+  },
+  man: {
+    area: 'Sustentação',
+    nome: 'Manutenção contínua',
+    desc: 'Suporte técnico contínuo, correções evolutivas, SLA definido e equipe dedicada para garantir disponibilidade e estabilidade dos sistemas.',
+    features: [
+      'SLA com resposta em até 4h para incidentes críticos',
+      'Monitoramento proativo 24/7',
+      'Gestão de vulnerabilidades e patches de segurança',
+      'Relatórios mensais de disponibilidade e qualidade'
+    ],
+    vm: 3200, meses: 12,
+    preco: '3.200', per: 'por mês · SLA 4h garantido'
+  },
+  dig: {
+    area: 'Modernização',
+    nome: 'Transformação digital',
+    desc: 'Modernização de legados, migração para cloud e implantação de práticas DevOps para aumentar a eficiência operacional do órgão.',
+    features: [
+      'Diagnóstico e roadmap de modernização',
+      'Migração incremental sem interrupção de serviços',
+      'Implantação de pipelines CI/CD',
+      'Treinamento das equipes do órgão contratante'
+    ],
+    vm: 12000, meses: 18,
+    preco: '12.000', per: 'por mês · projeto mín. 6 meses'
+  },
+  bi: {
+    area: 'Dados & BI',
+    nome: 'Inteligência e dados',
+    desc: 'Dashboards gerenciais, integração de dados e soluções de BI para apoiar tomadas de decisão baseadas em evidências na gestão pública.',
+    features: [
+      'Painéis interativos com dados em tempo real',
+      'Integração com fontes como SIAFI, SIAPE e SEI',
+      'Exportações em formatos auditáveis',
+      'Capacitação dos gestores para uso das ferramentas'
+    ],
+    vm: 5500, meses: 12,
+    preco: '5.500', per: 'por mês · implantação inclusa'
+  },
+  seg: {
+    area: 'Segurança',
+    nome: 'Segurança da informação',
+    desc: 'Auditorias, adequação à LGPD, controles de acesso e planos de continuidade para ambientes governamentais críticos.',
+    features: [
+      'Pentest e análise de vulnerabilidades',
+      'Adequação à LGPD e IN SGD/ME nº 01/2019',
+      'Planos de contingência e recuperação de desastres',
+      'Gestão de identidade e controle de acesso'
+    ],
+    vm: 4800, meses: 12,
+    preco: '4.800', per: 'por mês · auditoria mensal inclusa'
+  },
+  cap: {
+    area: 'Capacitação',
+    nome: 'Treinamento técnico',
+    desc: 'Treinamentos, documentação e transferência de conhecimento para equipes de TI dos órgãos contratantes, garantindo autonomia e continuidade.',
+    features: [
+      'Workshops de boas práticas e DevOps',
+      'Documentação técnica e manuais de operação',
+      'Suporte pós-implantação com transferência gradual',
+      'Avaliação de maturidade da equipe contratante'
+    ],
+    vm: 2200, meses: 6,
+    preco: '2.200', per: 'por mês · turmas de até 20 pessoas'
+  }
+};
+
+/* ── MOCK DB DE CONTRATOS ──────────────────────── */
+const MOCK_DB = [
+  {id:1, nome:'SEFAZ-MG',  produto:'Sistemas sob medida',    vm:8500,  meses:24},
+  {id:2, nome:'TCE-RJ',    produto:'Manutenção contínua',    vm:3200,  meses:12},
+  {id:3, nome:'PROCON-SP', produto:'Transformação digital',  vm:12000, meses:18},
+  {id:4, nome:'DETRAN-PR', produto:'Inteligência e dados',   vm:5500,  meses:12},
+  {id:5, nome:'SEPLAG-AM', produto:'Segurança da informação',vm:4800,  meses:12},
+];
+
+const fmtBRL = v => new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v);
+let modoCalc  = 'bug';
+let modoBusca = 'bug';
+
+/* ── SELEÇÃO DE SERVIÇO ────────────────────────── */
+window.selecionarServico = function(id, cardEl){
+  const srv = SERVICOS[id];
+  if(!srv) return;
+
+  /* destaque no card */
+  document.querySelectorAll('.srv-card').forEach(c => c.classList.remove('is-active'));
+  cardEl.classList.add('is-active');
+
+  /* preenche painel de detalhes */
+  document.getElementById('srv-empty').style.display = 'none';
+  const content = document.getElementById('srv-detail-content');
+  content.classList.add('visible');
+  document.getElementById('sd-area').textContent  = srv.area;
+  document.getElementById('sd-nome').textContent  = srv.nome;
+  document.getElementById('sd-desc').textContent  = srv.desc;
+  document.getElementById('sd-price').textContent = srv.preco;
+  document.getElementById('sd-per').textContent   = srv.per;
+  const featEl = document.getElementById('sd-features');
+  featEl.innerHTML = srv.features.map(f=>`<li>${f}</li>`).join('');
+
+  /* atualiza o sistema interativo */
+  const selEl = document.getElementById('qa-produto');
+  if(selEl){
+    /* encontra a opção pelo nome */
+    for(let opt of selEl.options){
+      if(opt.dataset.id === id){ selEl.value = opt.value; break; }
+    }
+  }
+  const vmEl = document.getElementById('qa-valor');
+  const mEl  = document.getElementById('qa-meses');
+  if(vmEl) vmEl.value = srv.vm;
+  if(mEl)  mEl.value  = srv.meses;
+  qaResetar();
+
+  /* scroll suave para o card destaque */
+  document.querySelector('.portfolio-destaque').scrollIntoView({ behavior:'smooth', block:'start' });
+};
+
+/* ── ESTILOS DO SISTEMA EMBED ──────────────────── */
+const css = `
+  #qa-sistema-embed *{box-sizing:border-box;margin:0;padding:0}
+  #qa-sistema-embed{font-family:'DM Sans',sans-serif;color:#1a2340}
+  .qa-tabs{display:flex;gap:0;border-bottom:1.5px solid #e8edf5}
+  .qa-tab{padding:10px 16px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:none;color:#556080;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all 0.2s;letter-spacing:0.01em;font-family:inherit}
+  .qa-tab.active{color:#003087;border-bottom-color:#003087;background:rgba(0,48,135,0.03)}
+  .qa-pane{display:none;padding:16px 18px 18px}.qa-pane.active{display:block}
+  /* --- serviço selecionado info bar --- */
+  .qa-srv-bar{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f0f4fb;border-radius:9px;margin-bottom:12px;border:1.5px solid #e0e8f4}
+  .qa-srv-bar-dot{width:8px;height:8px;border-radius:50%;background:#003087;flex-shrink:0}
+  .qa-srv-bar-nome{font-size:12px;font-weight:700;color:#003087;flex:1}
+  .qa-srv-bar-vm{font-size:11px;color:#556080;font-family:monospace}
+  /* --- form --- */
+  .qa-form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .qa-form-group{display:flex;flex-direction:column;gap:5px}
+  .qa-form-group label{font-size:10.5px;color:#556080;font-weight:700;text-transform:uppercase;letter-spacing:0.06em}
+  .qa-form-group input,.qa-form-group select{padding:7px 10px;font-size:12.5px;border:1.5px solid #e8edf5;border-radius:8px;background:#f8faff;color:#1a2340;width:100%;font-family:inherit}
+  .qa-form-group input:focus,.qa-form-group select:focus{outline:none;border-color:#003087;background:#fff;box-shadow:0 0 0 3px rgba(0,48,135,0.08)}
+  .qa-mode-toggle{display:flex;gap:4px;margin-bottom:12px;padding:3px;background:#f0f4fb;border-radius:8px;width:fit-content}
+  .qa-mode-btn{padding:4px 11px;font-size:11px;font-weight:600;border:none;cursor:pointer;border-radius:6px;background:none;color:#556080;transition:all 0.2s;font-family:inherit}
+  .qa-mode-btn.active{background:#fff;color:#003087;box-shadow:0 1px 3px rgba(0,48,135,0.12)}
+  .qa-btn-row{display:flex;gap:8px;margin-top:12px}
+  .qa-btn-primary{padding:8px 16px;font-size:12px;font-weight:700;background:#003087;color:#fff;border:none;border-radius:8px;cursor:pointer;flex:1;transition:background 0.2s;font-family:inherit}
+  .qa-btn-primary:hover{background:#00205c}
+  .qa-btn-secondary{padding:8px 12px;font-size:12px;font-weight:600;background:none;border:1.5px solid #e8edf5;color:#556080;border-radius:8px;cursor:pointer;font-family:inherit}
+  .qa-btn-secondary:hover{background:#f0f4fb}
+  .qa-output{margin-top:12px;padding:11px 13px;border-radius:9px;border:1.5px solid #e8edf5;background:#f8faff;font-size:12.5px;display:none}
+  .qa-output.show{display:block}
+  .qa-output .o-lbl{font-size:9.5px;color:#556080;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;font-weight:700}
+  .qa-output .o-val{font-size:17px;font-weight:700;color:#1a2340}
+  .qa-output.is-err{border-color:#fca5a5;background:#fff5f5}
+  .qa-output.is-err .o-val{color:#b91c1c;font-size:12px;font-family:monospace;font-weight:400}
+  .qa-output.is-ok{border-color:#86efac;background:#f0fdf4}
+  .qa-output.is-ok .o-val{color:#166534}
+  .qa-log{margin-top:8px;padding:11px 13px;background:#0d1f3c;border-radius:9px;font-family:monospace;font-size:11px;line-height:1.75;color:#a8d8f0;display:none;max-height:160px;overflow-y:auto}
+  .qa-log.show{display:block}
+  .le{color:#f87171}.lok{color:#34d399}.lm{color:rgba(168,216,240,0.4)}.lw{color:#f59e0b}
+  .qa-section-lbl{font-size:10px;font-weight:700;color:#556080;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+  .qa-contract-list{display:flex;flex-direction:column;gap:5px}
+  .qa-contract-row{display:flex;align-items:center;gap:8px;padding:8px 11px;border:1.5px solid #e8edf5;border-radius:9px;background:#f8faff;cursor:pointer;transition:background 0.15s;font-size:12px}
+  .qa-contract-row:hover{background:#e8edf5;border-color:#c8d6ee}
+  .qa-c-id{font-family:monospace;font-size:10.5px;color:#556080;width:24px}
+  .qa-c-name{flex:1;font-weight:600;color:#1a2340}
+  .qa-c-val{color:#556080;font-family:monospace;font-size:11px}
+  .qa-info-panel{padding:10px 12px;background:#f8faff;border-radius:9px;border:1.5px solid #e8edf5;margin-top:8px;display:none}
+  .qa-info-panel.show{display:block}
+  .qa-ip-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #e8edf5;font-size:12px}
+  .qa-ip-row:last-child{border:none}
+  .qa-ip-lbl{color:#556080;font-size:11px}
+  .qa-ip-val{font-weight:600;color:#1a2340}
+  .qa-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:12px}
+  .qa-stat-card{padding:10px;border-radius:9px;background:#f8faff;border:1.5px solid #e8edf5;text-align:center}
+  .qa-stat-num{font-size:18px;font-weight:700;color:#1a2340;line-height:1}
+  .qa-stat-lbl{font-size:9.5px;color:#556080;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px}
+  .qa-divider{height:1px;background:#e8edf5;margin:14px 0}
+  /* resumo do pedido */
+  .qa-resumo{margin-top:10px;background:#003087;border-radius:9px;padding:12px 14px;display:none}
+  .qa-resumo.show{display:block}
+  .qa-resumo-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.1);font-size:11.5px}
+  .qa-resumo-row:last-child{border:none;font-weight:700;font-size:13px;color:#34d399;padding-top:8px}
+  .qa-resumo-lbl{color:rgba(255,255,255,0.55)}
+  .qa-resumo-val{color:#fff}
+`;
+const styleEl = document.createElement('style');
+styleEl.textContent = css;
+document.head.appendChild(styleEl);
+
+/* ── HTML DO SISTEMA ───────────────────────────── */
+const html = `
+<div class="qa-tabs">
+  <button class="qa-tab active" onclick="qaTab('compra',this)">Nova compra</button>
+  <button class="qa-tab" onclick="qaTab('contratos',this)">Contratos</button>
+  <button class="qa-tab" onclick="qaTab('logs',this)">Logs de teste</button>
+</div>
+
+<!-- ABA COMPRA -->
+<div id="qa-pane-compra" class="qa-pane active">
+  <!-- barra do serviço selecionado -->
+  <div class="qa-srv-bar" id="qa-srv-bar" style="display:none">
+    <span class="qa-srv-bar-dot"></span>
+    <span class="qa-srv-bar-nome" id="qa-srv-nome">—</span>
+    <span class="qa-srv-bar-vm" id="qa-srv-vm">—</span>
+  </div>
+  <div class="qa-section-lbl">Modo de cálculo</div>
+  <div class="qa-mode-toggle">
+    <button class="qa-mode-btn active" id="qa-btn-bug" onclick="qaSetModo('bug')">⚠ Com falha (+)</button>
+    <button class="qa-mode-btn"        id="qa-btn-fix" onclick="qaSetModo('fix')">✓ Corrigido (×)</button>
+  </div>
+  <div class="qa-form-row">
+    <div class="qa-form-group">
+      <label>Serviço / produto</label>
+      <select id="qa-produto" onchange="qaProdutoChange()">
+        <option value="" data-id="">Selecionar...</option>
+        <option value="Sistemas sob medida" data-id="des">Sistemas sob medida</option>
+        <option value="Manutenção contínua" data-id="man">Manutenção contínua</option>
+        <option value="Transformação digital" data-id="dig">Transformação digital</option>
+        <option value="Inteligência e dados" data-id="bi">Inteligência e dados</option>
+        <option value="Segurança da informação" data-id="seg">Segurança da informação</option>
+        <option value="Treinamento técnico" data-id="cap">Treinamento técnico</option>
+      </select>
+    </div>
+    <div class="qa-form-group">
+      <label>Valor mensal (R$)</label>
+      <input type="number" id="qa-valor" placeholder="ex: 8500">
+    </div>
+  </div>
+  <div class="qa-form-row">
+    <div class="qa-form-group">
+      <label>Período (meses)</label>
+      <input type="number" id="qa-meses" placeholder="ex: 12">
+    </div>
+    <div class="qa-form-group">
+      <label>Órgão contratante</label>
+      <input type="text" id="qa-orgao" placeholder="ex: SEFAZ-MG">
+    </div>
+  </div>
+  <div class="qa-btn-row">
+    <button class="qa-btn-primary" onclick="qaCalcular()">Calcular contrato</button>
+    <button class="qa-btn-secondary" onclick="qaResetar()">Limpar</button>
+  </div>
+  <div id="qa-resultado" class="qa-output">
+    <div class="o-lbl" id="qa-res-lbl"></div>
+    <div class="o-val" id="qa-res-val"></div>
+  </div>
+  <div id="qa-logbox" class="qa-log"><div id="qa-log-content"></div></div>
+  <div class="qa-resumo" id="qa-resumo">
+    <div class="qa-resumo-row"><span class="qa-resumo-lbl">Serviço</span><span class="qa-resumo-val" id="qr-srv"></span></div>
+    <div class="qa-resumo-row"><span class="qa-resumo-lbl">Órgão</span><span class="qa-resumo-val" id="qr-org"></span></div>
+    <div class="qa-resumo-row"><span class="qa-resumo-lbl">Valor mensal</span><span class="qa-resumo-val" id="qr-vm"></span></div>
+    <div class="qa-resumo-row"><span class="qa-resumo-lbl">Período</span><span class="qa-resumo-val" id="qr-per"></span></div>
+    <div class="qa-resumo-row"><span class="qa-resumo-lbl">TOTAL DO CONTRATO</span><span id="qr-total"></span></div>
+  </div>
+</div>
+
+<!-- ABA CONTRATOS -->
+<div id="qa-pane-contratos" class="qa-pane">
+  <div class="qa-section-lbl">Busca de contratos</div>
+  <div class="qa-form-row" style="grid-template-columns:1fr auto">
+    <div class="qa-form-group">
+      <label>ID do contrato</label>
+      <input type="number" id="qa-busca-id" value="1" placeholder="1–5">
+    </div>
+    <div class="qa-form-group" style="justify-content:flex-end">
+      <label>&nbsp;</label>
+      <button class="qa-btn-primary" style="white-space:nowrap" onclick="qaBuscar()">Buscar</button>
+    </div>
+  </div>
+  <div class="qa-mode-toggle" style="margin-top:4px">
+    <button class="qa-mode-btn active" id="qa-btn-bug2" onclick="qaSetModo2('bug')">get_by_id (erro)</button>
+    <button class="qa-mode-btn"        id="qa-btn-fix2" onclick="qaSetModo2('fix')">find_id (correto)</button>
+  </div>
+  <div id="qa-c-err" class="qa-output is-err"><div class="o-lbl">Traceback</div><div class="o-val" id="qa-c-err-msg"></div></div>
+  <div id="qa-c-log" class="qa-log"><div id="qa-c-log-c"></div></div>
+  <div id="qa-c-info" class="qa-info-panel">
+    <div class="qa-ip-row"><span class="qa-ip-lbl">ID</span><span class="qa-ip-val" id="qi-id">—</span></div>
+    <div class="qa-ip-row"><span class="qa-ip-lbl">Órgão</span><span class="qa-ip-val" id="qi-nome">—</span></div>
+    <div class="qa-ip-row"><span class="qa-ip-lbl">Produto</span><span class="qa-ip-val" id="qi-prod">—</span></div>
+    <div class="qa-ip-row"><span class="qa-ip-lbl">Valor mensal</span><span class="qa-ip-val" id="qi-vm">—</span></div>
+    <div class="qa-ip-row"><span class="qa-ip-lbl">Período</span><span class="qa-ip-val" id="qi-per">—</span></div>
+    <div class="qa-ip-row"><span class="qa-ip-lbl">Valor total</span><span class="qa-ip-val" id="qi-total">—</span></div>
+  </div>
+  <div class="qa-divider"></div>
+  <div class="qa-section-lbl">Contratos no banco</div>
+  <div class="qa-contract-list" id="qa-lista"></div>
+</div>
+
+<!-- ABA LOGS -->
+<div id="qa-pane-logs" class="qa-pane">
+  <div class="qa-section-lbl">test_solutix.py — execução completa</div>
+  <div class="qa-log show" id="qa-log-tests" style="max-height:200px"></div>
+  <div class="qa-stats-row">
+    <div class="qa-stat-card"><div class="qa-stat-num" id="qa-ok" style="color:#166534">0</div><div class="qa-stat-lbl">Aprovados</div></div>
+    <div class="qa-stat-card"><div class="qa-stat-num" id="qa-fail" style="color:#b91c1c">0</div><div class="qa-stat-lbl">Reprovados</div></div>
+    <div class="qa-stat-card"><div class="qa-stat-num" id="qa-rate" style="color:#1a2340">—</div><div class="qa-stat-lbl">Taxa</div></div>
+  </div>
+  <div class="qa-btn-row" style="margin-top:10px">
+    <button class="qa-btn-primary" onclick="qaRunTests()">Executar testes</button>
+  </div>
+</div>
+`;
+
+document.getElementById('qa-sistema-embed').innerHTML = html;
+
+/* ── LÓGICA DO SISTEMA ─────────────────────────── */
+
+/* mudança no select atualiza barra de serviço e campos */
+window.qaProdutoChange = function(){
+  const sel = document.getElementById('qa-produto');
+  const opt = sel.options[sel.selectedIndex];
+  const id  = opt.dataset.id;
+  if(!id) return;
+  const srv = SERVICOS[id];
+  if(!srv) return;
+  document.getElementById('qa-valor').value = srv.vm;
+  document.getElementById('qa-meses').value = srv.meses;
+  /* atualiza barra de info */
+  document.getElementById('qa-srv-bar').style.display = 'flex';
+  document.getElementById('qa-srv-nome').textContent  = srv.nome;
+  document.getElementById('qa-srv-vm').textContent    = fmtBRL(srv.vm)+'/mês';
+  qaResetar();
+  /* atualiza painel esquerdo se ainda não foi selecionado via card */
+  if(!document.querySelector('.srv-card.is-active')){
+    const card = document.querySelector(`.srv-card[data-srv="${id}"]`);
+    if(card) selecionarServico(id, card);
+  }
+};
+
+window.qaTab = function(t, btn){
+  document.querySelectorAll('.qa-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.qa-pane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('qa-pane-'+t).classList.add('active');
+  if(t==='contratos') qaRenderLista();
+  if(t==='logs')      qaRunTests();
+};
+
+window.qaSetModo = function(m){
+  modoCalc = m;
+  document.getElementById('qa-btn-bug').classList.toggle('active', m==='bug');
+  document.getElementById('qa-btn-fix').classList.toggle('active', m==='fix');
+  qaResetar();
+};
+
+window.qaSetModo2 = function(m){
+  modoBusca = m;
+  document.getElementById('qa-btn-bug2').classList.toggle('active', m==='bug');
+  document.getElementById('qa-btn-fix2').classList.toggle('active', m==='fix');
+  ['qa-c-err','qa-c-log','qa-c-info'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.classList.remove('show');
+  });
+};
+
+window.qaCalcular = function(){
+  const vm   = parseFloat(document.getElementById('qa-valor').value)||0;
+  const m    = parseFloat(document.getElementById('qa-meses').value)||0;
+  const srv  = document.getElementById('qa-produto').value || '—';
+  const org  = document.getElementById('qa-orgao').value  || '—';
+  const res  = document.getElementById('qa-resultado');
+  const log  = document.getElementById('qa-logbox');
+  const logC = document.getElementById('qa-log-content');
+  const resu = document.getElementById('qa-resumo');
+  resu.classList.remove('show');
+
+  if(!vm||!m){
+    res.className='qa-output is-err show';
+    document.getElementById('qa-res-lbl').textContent='Erro de entrada';
+    document.getElementById('qa-res-val').textContent='Preencha valor mensal e período.';
+    log.classList.remove('show'); return;
+  }
+
+  if(modoCalc==='bug'){
+    const errado = vm + m;
+    res.className='qa-output is-err show';
+    document.getElementById('qa-res-lbl').textContent='SAÍDA DO SISTEMA (FALHA)';
+    document.getElementById('qa-res-val').textContent='Resultado: '+errado;
+    logC.innerHTML=
+      `<span class="lm">> Running test_solutix.py...</span>\n`+
+      `<span class="le">FAIL: test_calcular_valor_total</span>\n`+
+      `<span class="lm">-----------------------------------</span>\n`+
+      `<span class="le">AssertionError: ${errado} != ${vm*m}</span>\n`+
+      `<span class="lm">  Expected: ${vm*m} (${vm} × ${m})</span>\n`+
+      `<span class="le">  Actual:   ${errado} (${vm} + ${m})  ← BUG: + em vez de ×</span>\n`+
+      `<span class="lm">-----------------------------------</span>\n`+
+      `<span class="le">FAILED (failures=1)</span>`;
+    log.classList.add('show');
+  } else {
+    const correto = vm * m;
+    res.className='qa-output is-ok show';
+    document.getElementById('qa-res-lbl').textContent='Valor Total do Contrato';
+    document.getElementById('qa-res-val').textContent=fmtBRL(correto);
+    logC.innerHTML=
+      `<span class="lm">> Running test_solutix.py...</span>\n`+
+      `<span class="lok">PASS: test_calcular_valor_total</span>\n`+
+      `<span class="lm">-----------------------------------</span>\n`+
+      `<span class="lok">  ${vm} × ${m} = ${correto}</span>\n`+
+      `<span class="lok">  Formatado: ${fmtBRL(correto)}</span>\n`+
+      `<span class="lm">-----------------------------------</span>\n`+
+      `<span class="lok">OK (1 test)</span>`;
+    log.classList.add('show');
+    /* resumo do pedido */
+    document.getElementById('qr-srv').textContent   = srv;
+    document.getElementById('qr-org').textContent   = org;
+    document.getElementById('qr-vm').textContent    = fmtBRL(vm)+'/mês';
+    document.getElementById('qr-per').textContent   = m+' meses';
+    document.getElementById('qr-total').textContent = fmtBRL(correto);
+    resu.classList.add('show');
+  }
+};
+
+window.qaResetar = function(){
+  document.getElementById('qa-resultado').classList.remove('show');
+  document.getElementById('qa-logbox').classList.remove('show');
+  document.getElementById('qa-resumo').classList.remove('show');
+};
+
+window.qaBuscar = function(){
+  const id    = parseInt(document.getElementById('qa-busca-id').value);
+  const errEl = document.getElementById('qa-c-err');
+  const logEl = document.getElementById('qa-c-log');
+  const infEl = document.getElementById('qa-c-info');
+  const logC  = document.getElementById('qa-c-log-c');
+  errEl.classList.remove('show');
+  logEl.classList.remove('show');
+  infEl.classList.remove('show');
+
+  if(modoBusca==='bug'){
+    errEl.classList.add('show');
+    document.getElementById('qa-c-err-msg').textContent =
+      `> Calling buscar_contrato(${id})...\nAttributeError: 'MockDB' object has no attribute 'get_by_id'`;
+    logC.innerHTML=
+      `<span class="lm">> Calling buscar_contrato(${id})...</span>\n`+
+      `<span class="le">AttributeError: 'MockDB' object</span>\n`+
+      `<span class="le">  has no attribute 'get_by_id'</span>\n`+
+      `<span class="lw"># Nota técnica:</span>\n`+
+      `<span class="lw"># O conector usa find_id(), mas</span>\n`+
+      `<span class="lw"># ContratoService chama get_by_id()</span>`;
+    logEl.classList.add('show');
+    return;
+  }
+  const c = MOCK_DB.find(x=>x.id===id);
+  if(!c){
+    errEl.classList.add('show');
+    document.getElementById('qa-c-err-msg').textContent=`Contrato #${id} não encontrado no banco.`;
+    return;
+  }
+  const total = c.vm * c.meses;
+  document.getElementById('qi-id').textContent   = '#'+c.id;
+  document.getElementById('qi-nome').textContent  = c.nome;
+  document.getElementById('qi-prod').textContent  = c.produto;
+  document.getElementById('qi-vm').textContent    = fmtBRL(c.vm)+'/mês';
+  document.getElementById('qi-per').textContent   = c.meses+' meses';
+  document.getElementById('qi-total').textContent = fmtBRL(total);
+  logC.innerHTML=
+    `<span class="lm">> Calling buscar_contrato(${c.id})...</span>\n`+
+    `<span class="lok">  db.find_id(${c.id}) → found ✓</span>\n`+
+    `<span class="lok">  contrato.nome = "${c.nome}"</span>\n`+
+    `<span class="lok">  valor_total   = ${fmtBRL(total)}</span>\n`+
+    `<span class="lok">OK</span>`;
+  logEl.classList.add('show');
+  infEl.classList.add('show');
+};
+
+window.qaRenderLista = function(){
+  const el = document.getElementById('qa-lista');
+  if(!el) return;
+  el.innerHTML = MOCK_DB.map(c=>`
+    <div class="qa-contract-row" onclick="document.getElementById('qa-busca-id').value=${c.id}">
+      <span class="qa-c-id">#${c.id}</span>
+      <span class="qa-c-name">${c.nome} — ${c.produto}</span>
+      <span class="qa-c-val">${fmtBRL(c.vm)}/mês · ${c.meses}m</span>
+    </div>`).join('');
+};
+
+window.qaRunTests = function(){
+  const bug=1000+12, ok=1000*12;
+  const lines=[
+    `<span class="lm">> Running test_solutix.py...</span>`,
+    `<span class="lm">===================================</span>`,
+    `<span class="lm">TEST 1 — test_calcular_valor_total</span>`,
+    `<span class="le">  FAIL: AssertionError: ${bug} != ${ok}</span>`,
+    `<span class="lm">  Expected: ${ok}  (1000 × 12)</span>`,
+    `<span class="le">  Actual:   ${bug}  (1000 + 12)  ← BUG</span>`,
+    `<span class="lm">-----------------------------------</span>`,
+    `<span class="lm">TEST 2 — test_integracao_banco</span>`,
+    `<span class="le">  FAIL: AttributeError</span>`,
+    `<span class="le">  'MockDB' has no attribute 'get_by_id'</span>`,
+    `<span class="lw">  # Correto é: find_id()</span>`,
+    `<span class="lm">-----------------------------------</span>`,
+    `<span class="lm">TEST 3 — test_aceitacao_usuario</span>`,
+    `<span class="le">  FAIL: 'R$' not found in 'Resultado: ${bug}'</span>`,
+    `<span class="le">  Expected: "Valor Total do Contrato: R$ ${ok}.00"</span>`,
+    `<span class="le">  Actual:   "Resultado: ${bug}"</span>`,
+    `<span class="lm">===================================</span>`,
+    `<span class="le">FAILED (failures=3)</span>`,
+    `<span class="lm"> </span>`,
+    `<span class="lm">>>> Aplicando correções...</span>`,
+    `<span class="lok">✓ calcular_valor_total: + → × + guarda negativo</span>`,
+    `<span class="lok">✓ buscar_contrato: get_by_id → find_id</span>`,
+    `<span class="lok">✓ exibir_resumo: formatação BRL + rótulo semântico</span>`,
+    `<span class="lm">-----------------------------------</span>`,
+    `<span class="lok">test_calcular_valor_total ... OK</span>`,
+    `<span class="lok">test_integracao_banco    ... OK</span>`,
+    `<span class="lok">test_aceitacao_usuario   ... OK</span>`,
+    `<span class="lm">===================================</span>`,
+    `<span class="lok">Ran 3 tests in 0.003s — OK (100%)</span>`,
+  ];
+  document.getElementById('qa-log-tests').innerHTML=lines.join('\n');
+  document.getElementById('qa-ok').textContent='3';
+  document.getElementById('qa-fail').textContent='0';
+  document.getElementById('qa-rate').textContent='100%';
+  document.getElementById('qa-rate').style.color='#166534';
+};
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const lista=document.getElementById('qa-lista');
+  if(lista) qaRenderLista();
+});
+
+})();
+</script>
+
+
+<script src="main.js"></script>
+</body>
+</html>
