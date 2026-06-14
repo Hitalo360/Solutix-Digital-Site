@@ -1,19 +1,23 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
-
 const app = express();
+process.env.MYSQLHOST = "mysql-2pj3.railway.internal";
+process.env.MYSQLUSER = "root";
+process.env.MYSQLPASSWORD = "gBCWcjjbmPpOADmqgwniffetUqrkYxxe";
+process.env.MYSQLDATABASE = "railway";
+process.env.MYSQLPORT = 3306;
 
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Pudim@010989",
-    database: "solutix"
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    port: process.env.MYSQLPORT
 });
-
 db.connect((err) => {
     if(err){
         console.log(err);
