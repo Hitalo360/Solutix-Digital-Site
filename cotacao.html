@@ -1201,38 +1201,74 @@ function renderizarRevisao() {
 /* ════════════════════════════════════════════════
    ENVIO
    ════════════════════════════════════════════════ */
-function enviarCotacao() {
-  const btn = document.getElementById('btn-enviar');
-  btn.disabled = true;
-  btn.innerHTML = `<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite"></span> Enviando…`;
+async function enviarCotacao() {
 
-  // Simula envio (substituir por fetch real)
-  setTimeout(() => {
-    const protocolo = 'STX-' + Date.now().toString().slice(-8).toUpperCase();
-    document.getElementById('protocolo-num').textContent = protocolo;
+  const protocolo = 'STX-' + Date.now();
 
-    // Oculta stepper
-    document.querySelector('.stepper').style.display = 'none';
+  const selecionados = SERVICOS
+      .filter(s => estado.servicosSelecionados.has(s.id))
+      .map(s => s.nome);
 
-    // Mostra etapa 5
-    document.querySelectorAll('.etapa-conteudo').forEach(el => el.classList.remove('ativa'));
-    document.getElementById('etapa-5').classList.add('ativa');
+  const subtotal = SERVICOS
+      .filter(s => estado.servicosSelecionados.has(s.id))
+      .reduce((acc,s)=>acc+s.precoBase,0);
 
-    // Atualiza sidebar
-    document.querySelector('.resumo-sidebar').innerHTML = `
-      <div class="resumo-card">
-        <div style="padding:2rem;text-align:center">
-          <div style="font-size:2.5rem;margin-bottom:0.8rem">✅</div>
-          <p style="font-family:'Syne',sans-serif;font-weight:700;color:var(--blue-deep);margin-bottom:0.5rem">Solicitação enviada com sucesso!</p>
-          <p style="font-size:0.85rem;color:var(--gray-text);line-height:1.6">Nossa equipe entrará em contato em até <strong>2 dias úteis</strong>.</p>
-          <div style="margin-top:1.2rem;padding:0.8rem;background:var(--gray-lt);border-radius:10px;">
-            <div style="font-size:0.72rem;color:var(--gray-text);text-transform:uppercase;letter-spacing:0.08em">Protocolo</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--blue-deep);letter-spacing:2px">${protocolo}</div>
-          </div>
-        </div>
-      </div>
-    `;
-  }, 1800);
+  const fator = estado.planoSelecionado.multiplicador;
+  const total = subtotal * fator;
+
+  const dados = {
+      protocolo,
+      nome: document.getElementById('inp-nome').value,
+      cargo: document.getElementById('inp-cargo').value,
+      orgao: document.getElementById('inp-orgao').value,
+      email: document.getElementById('inp-email').value,
+      telefone: document.getElementById('inp-tel').value,
+      uf: document.getElementById('inp-uf').value,
+      observacoes: document.getElementById('inp-obs').value,
+      servicos: selecionados,
+      plano: estado.planoSelecionado.nome,
+      subtotal,
+      fator,
+      total
+  };
+
+  try {
+
+      const resposta = await fetch(
+          "http://localhost:3000/cotacao",
+          {
+              method:"POST",
+              headers:{
+                  "Content-Type":"application/json"
+              },
+              body: JSON.stringify(dados)
+          }
+      );
+
+      const resultado = await resposta.json();
+
+      if(resultado.sucesso){
+
+          document.getElementById('protocolo-num').textContent = protocolo;
+
+          document.querySelector('.stepper').style.display = 'none';
+
+          document.querySelectorAll('.etapa-conteudo')
+          .forEach(el => el.classList.remove('ativa'));
+
+          document
+          .getElementById('etapa-5')
+          .classList.add('ativa');
+
+      }
+
+  } catch(err){
+
+      alert("Erro ao enviar cotação.");
+
+      console.error(err);
+
+  }
 }
 
 function resetarFormulario() {
