@@ -26,6 +26,16 @@ db.connect((err) => {
     }
 });
 
+const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+    res.send("API SoluTIx Online");
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
+
 app.post("/cotacao", (req,res)=>{
 
     const {
