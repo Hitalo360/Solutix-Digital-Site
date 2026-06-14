@@ -11,6 +11,19 @@ process.env.MYSQLPORT = 3306;
 app.use(cors());
 app.use(express.json());
 
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+    res.send("API SoluTIx Online");
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
+
 const db = mysql.createConnection({
     host: process.env.MYSQLHOST,
     user: process.env.MYSQLUSER,
